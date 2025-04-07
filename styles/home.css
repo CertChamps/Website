@@ -17,7 +17,7 @@ STYLES INITIALISATION - FONT AND COLOUR PALLETE
 * {
     font-family: "Outfit", sans-serif;
     margin: 0px;
-    transition: all 0.2s ease-in-out;
+    /* transition: all 0.2s ease-in-out; */
 }
 
 body {
@@ -37,6 +37,7 @@ nav {
     display: flex;
     position: fixed;
     align-items: center;
+    justify-content: center;
     background-color: var(--primary);
     height: 85px;
     width: 100%;
@@ -53,17 +54,12 @@ nav h1 {
     padding-left: 10px;
 }
 
-nav li {
-    display: inline;
-    padding: 20px;
-    text-decoration: none;
-
-}
-
 nav a {
     color: var(--white);
     font-size: 1.1em;
     text-decoration: none;
+    margin-right: 20px;
+    padding: 10px 15px;
 }
 
 nav a:hover {
@@ -72,7 +68,7 @@ nav a:hover {
 
 .nav-login {
     background-color: var(--primary-dark);
-    padding: 10px 15px;
+ 
     margin-left: 15px;
     border-radius: 10px;
 }
@@ -91,6 +87,28 @@ nav a:hover {
     justify-content: flex-end;
     align-items: center;
     margin: 0px 50px;
+}
+
+@media only screen and (max-width: 850px) {
+    nav {
+        flex-direction: column;
+        height: 80px;
+        padding: 10px;
+    }
+    .nav-left { 
+        margin: 0px 10px; 
+    }
+
+    .nav-right { 
+        margin: 0px 10px;
+        justify-content: space-around;
+    }
+
+    nav a {
+        margin: 0px;
+    }
+    
+
 }
 /*============================================
                LANDING STYLES
@@ -152,7 +170,7 @@ nav a:hover {
         "image2  image3" /* overlap images, bigger images take up less space */ 
         "text3 image3";
     grid-template-columns: 1fr 1fr ;
-    grid-template-rows: 350px 100px 350px 100px 350px; 
+    grid-template-rows: auto auto auto auto auto; 
 }
 
 /* add content into grids */ 
@@ -163,11 +181,9 @@ nav a:hover {
 .text3 { grid-area: text3; }
 .image3 { grid-area: image3; }
 
-
-
 .information>img {
     height: 100%;
-    width: 100%;
+    width: 70%;
     margin: auto;
     object-fit: contain;
 }
@@ -202,22 +218,50 @@ nav a:hover {
     color: var(--secondary);
 }
 
+@media only screen and (max-width: 950px) {
+    .information {
+        display: block;
+        width: 100%;
+        margin: 20px 0px;
+    }
+
+    .text1, .text2, .text3 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .information>img {
+        width: 0px;
+    }
+    .information h2, .information p{
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .information a {
+        margin: 0px 24%;
+        text-align: center;
+    }
+}
+
+
 /*============================================
             STATISTICS
 ============================================*/
 .stats {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    margin: 20px 100px;
+    justify-content: space-between;
+    margin: 20px 50px;
 }
 
 .stat {
     height: 120px;
-    width: 250px;
-    background-color: var(--primary);
+    width: 20%;
+    background-color: var(--primary-dark);
     border-radius: 25px;
-    padding: 50px;
+    padding: 20px 50px 50px;
 }
 
 .stat:hover {
@@ -235,6 +279,109 @@ nav a:hover {
     font-size: 1.3em;
     text-align: center;
 }
+
+@media only screen and (max-width: 950px) {
+    .stats {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat {
+        height: 120px;
+        width: 70%;
+        background-color: var(--primary-dark);
+        border-radius: 25px;
+        padding: 20px 50px 50px;
+        margin: 15px;
+    }
+}
+
+/*============================================
+               PROMO STYLES
+============================================*/
+.premium {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 80px 100px;
+}
+
+.promo-right {
+    border-left: 2px solid var(--dark-grey);
+    padding-left: 50px;
+    margin-left: 20px;
+}
+
+.premium h1 {
+    font-size: 4.5em;
+    color: var(--black);
+}
+
+.premium h2 {
+    font-size: 4em;
+    color: var(--black);
+}
+
+.premium p {
+    font-size: 1.5em;
+    color: var(--dark-grey);
+    margin-bottom: 30px;
+}
+
+.premium li {
+    font-size: 1.5em;
+    margin: 30px;
+    display: block;
+    text-decoration: none;
+    color: var(--dark-grey);
+}
+
+.premium li::before {
+    content: url('../assets/checkmark.png');
+    display: inline;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.premium a {
+    border: 2px solid var(--primary);
+    text-decoration: none;
+    border-radius: 15px;
+    color: var(--primary);
+    font-size: 1em;
+    margin: 15px;
+    padding: 10px 25px;
+}
+
+.premium a:hover {
+    background-color: var(--primary);
+    color: var(--secondary);
+}
+
+@media only screen and (max-width: 1200px) {
+    .premium {
+        flex-direction: column;
+        width: 90%;
+        margin: 0px;
+    }
+    .promo-right {
+        width: 100%;
+        border-left: 0px solid ;
+        margin: 15px 15px;
+    }
+    .promo-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .premium h1 { font-size: 10vw; }
+    .premium h2 { font-size: 8vw; padding-top: 10px;}
+    .premium p { text-align: center; }
+    .premium ul { padding-left: 5px;}
+    .premium li { list-style-position: inside; }
+}
+
 
 /*============================================
             WEBSITE FOOTER
@@ -255,7 +402,6 @@ nav a:hover {
 }
 
 .footer-title h1 {
-
     color: var(--black);
     padding-left: 10px;
     margin: 0px;
@@ -275,15 +421,15 @@ nav a:hover {
     display: block;
 }
 
-.footer-product, .footer-company {
+.footer-product, .footer-company, .footer-social {
     margin: 20px 50px;
 }
 
-.footer-product>h2, .footer-company>h2 {
+.footer-product>h2, .footer-company>h2, .footer-social>h2 {
     color: var(--white);
 }
 
-.footer-product a, .footer-company a {
+.footer-product a, .footer-company a, .footer-social>a {
     display: block;
     color: var(--grey);
     text-decoration: none;
@@ -301,4 +447,11 @@ nav a:hover {
 .footer-bottom img, .footer-bottom p {
     margin: 15px;
     opacity: 0.5;
+}
+
+@media only screen and (max-width: 950px) {
+    .footer {
+        flex-wrap: wrap;
+        padding: 50px 15px 0px;
+    }
 }
