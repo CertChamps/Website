@@ -22,6 +22,7 @@ STYLES INITIALISATION - FONT AND COLOUR PALLETE
 
 body {
     background-color: var(--white);
+
 }
 
 .highlight{ 
@@ -52,7 +53,7 @@ nav h1 {
     padding-left: 10px;
 }
 
-nav li, nav button {
+nav li {
     display: inline;
     padding: 20px;
     text-decoration: none;
@@ -125,7 +126,6 @@ nav a:hover {
 .landing-buttons {
     display: flex;
     justify-content: center;
-
     width: 100%;
 }
 .landing-buttons img{
@@ -200,4 +200,105 @@ nav a:hover {
 .information a:hover {
     background-color: var(--primary);
     color: var(--secondary);
+}
+
+/*============================================
+            STATISTICS
+============================================*/
+.stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 20px 100px;
+}
+
+.stat {
+    height: 120px;
+    width: 250px;
+    background-color: var(--primary);
+    border-radius: 25px;
+    padding: 50px;
+}
+
+.stat:hover {
+    box-shadow: 5px 5px 15px var(--grey);
+}
+
+.stat>h2 {
+    color: var(--secondary);
+    font-size: 3em;
+    text-align: center;
+}
+
+.stat>p {
+    color: var(--grey);
+    font-size: 1.3em;
+    text-align: center;
+}
+
+/*============================================
+            WEBSITE FOOTER
+============================================*/
+.footer {
+    background-color: var(--primary);
+    display: flex;
+    flex-direction: row;
+    padding: 50px 100px 0px;
+}
+
+
+.footer-title img {
+    width: 50px;
+    object-fit: contain;
+    display: inline;
+
+}
+
+.footer-title h1 {
+
+    color: var(--black);
+    padding-left: 10px;
+    margin: 0px;
+}
+
+.footer-title>p {
+    color: var(--grey);
+    margin: 15px;
+    font-weight: bold;
+}
+
+.footer-title>a img {
+    width: 120px;
+    height: 40px;
+    object-fit: cover;
+    margin: 15px;
+    display: block;
+}
+
+.footer-product, .footer-company {
+    margin: 20px 50px;
+}
+
+.footer-product>h2, .footer-company>h2 {
+    color: var(--white);
+}
+
+.footer-product a, .footer-company a {
+    display: block;
+    color: var(--grey);
+    text-decoration: none;
+    margin: 10px;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    background-color: var(--primary);
+   
+}
+
+.footer-bottom img, .footer-bottom p {
+    margin: 15px;
+    opacity: 0.5;
 }
