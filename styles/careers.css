@@ -1,0 +1,121 @@
+/*=================================================
+                    CAREERS
+=================================================*/
+.careers {
+    padding: 140px 140px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.careers h1 {
+    text-align: center;
+    font-size: 5em;
+    color: var(--black);
+}
+
+.careers h3{
+    text-align: center;
+    font-weight: 400;
+    font-size: 2em;
+    margin: 15px;
+    color: var(--dark-grey);
+}
+
+.careers input {
+    margin: 20px;
+    padding: 10px;
+    width: 30%;
+    border: 2px solid var(--dark-grey);
+    border-radius: 15px;
+    font-size: 1.5em;
+    color: var(--black);
+    transition: all 0.5s ease-in-out;
+}
+
+.careers input:focus {
+    width: 40%;
+    transition: all 0.5s ease-in-out;
+}
+
+/*=================================================
+                    JOB SEARCH
+=================================================*/
+
+.jobs-search {
+    padding: 0px 50px 50px;
+    display: flex;
+    justify-content: space-evenly;
+    height: 500px;
+}
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 5%;
+    flex: 1;
+    border-right: 2px solid var(--grey);
+}
+
+.filter h2 {
+    font-size: 3em;
+    color: var(--black);
+    padding: 5%;
+}
+
+.filter label {
+    color: var(--dark-grey);
+    padding: 10px 10%;
+    font-size: 1.5em;
+}
+#jobs {
+    flex: 4;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.job {
+    padding: 30px;
+    margin: 20px;
+    width: 80%;
+    border: 1px solid var(--dark-grey);
+    border-radius: 15px;
+    position: relative;
+    transition: all 0.4s ease-in-out;
+}
+
+.job:hover {
+    border: 1px solid var(--primary);
+    box-shadow: 5px 5px 20px var(--grey);
+    transition: all 0.4s ease-in-out;
+}
+
+.job>h3 {
+    color: var(--black);
+    margin: 10px 0px;
+    font-size: 1.5em;
+}
+
+.job>a {
+    color: var(--dark-grey);
+    
+    text-decoration: underline;
+}
+
+.tags {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 25px 10px;
+}
+
+.tags>p {
+    display: inline;
+    padding: 10px;
+    font-weight: bold;
+    margin: 10px;
+    background-color: #E9E9E9;
+    color: var(--dark-grey);
+    border-radius: 10px;
+}

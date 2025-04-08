@@ -11,3 +11,4 @@ I used these websites as inspiration to designn my own
 - SimpleStudy 
 - Duolingo 
 - Studyclix
+- StudySmarter
