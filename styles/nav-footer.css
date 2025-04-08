@@ -17,7 +17,7 @@ STYLES INITIALISATION - FONT AND COLOUR PALLETE
 * {
     font-family: "Outfit", sans-serif;
     margin: 0px;
-    /* transition: all 0.2s ease-in-out; */
+   
 }
 
 body {
@@ -41,6 +41,7 @@ nav {
     background-color: var(--primary);
     height: 85px;
     width: 100%;
+    z-index: 100; /* ensure it is always on top */
 }
 
 nav img {
@@ -50,7 +51,7 @@ nav img {
 
 nav h1 {
     display: inline;
-    color: var(--black);
+    color: var(--white);
     padding-left: 10px;
 }
 
@@ -60,10 +61,12 @@ nav a {
     text-decoration: none;
     margin-right: 20px;
     padding: 10px 15px;
+    transition: all 0.2s ease-in-out;
 }
 
 nav a:hover {
     color: var(--secondary);
+    transition: all 0.2s ease-in-out;
 }
 
 .nav-login {
@@ -131,7 +134,7 @@ nav a:hover {
 }
 
 .footer-title h1 {
-    color: var(--black);
+    color: var(--white);
     padding-left: 10px;
     margin: 0px;
 }

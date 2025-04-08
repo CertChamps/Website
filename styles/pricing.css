@@ -1,0 +1,211 @@
+/*=================================================
+                PRICINGS
+=================================================*/
+.pricing {
+    padding: 140px 140px 50px;
+}
+
+.pricing h1, .reviews h1 {
+    text-align: center;
+    font-size: 5em;
+    color: var(--black);
+}
+
+.pricing h3{
+    text-align: center;
+    font-weight: 400;
+    font-size: 2em;
+    color: var(--dark-grey);
+}
+
+.periods {
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    border: 2px solid var(--grey);
+    border-radius: 15px;
+    background-color: #FBFBFB;
+    margin: 30px auto 0px;
+}
+
+.periods button {
+    margin: 10px;
+    width: 30%;
+    padding: 5px;
+    background: none;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.3em;
+    color: var(--dark-grey);
+    transition: all 0.3s ease-in-out;
+}
+
+.selected {
+    font-weight: bold;
+    background-color: var(--grey);
+    box-shadow: 1px 1px 5px var(--grey);
+    transition: all 0.3s ease-in-out;
+}
+/*=================================================
+                PERK CARDS
+=================================================*/
+
+.perk-cards {
+    padding: 0px 100px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: end;
+    margin-bottom: 50px;
+}
+
+.perk-cards a {
+    border: 2px solid var(--primary);
+    text-decoration: none;
+    border-radius: 15px;
+    color: var(--primary);
+    font-size: 1.3em;
+    text-align: center;
+    font-weight: bold;
+    margin: 15px 0px;
+    padding: 10px 25px;
+    width: 80%;
+}
+
+.perk-cards a:hover {
+    background-color: var(--primary);
+    color: var(--secondary);
+}
+
+.free-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid var(--grey);
+    border-radius: 25px;
+    padding: 20px;
+}
+
+.free-card h1 {
+    text-align: center;
+    font-size: 3em;
+    margin: 10px;
+    color: var(--dark-grey);
+}
+
+.free-card h2 {
+    text-align: center;
+    font-size: 2.5em;
+    color: var(--dark-grey);
+}
+
+.free-card li {
+    margin: 25px;
+    color: var(--black);
+    font-size: 1.5em;
+}
+
+.free-card li::marker {
+    color: var(--black);
+}
+
+.premium-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid var(--primary);
+    box-shadow: 5px 5px 25px var(--grey);
+    border-radius: 25px;
+    padding: 0px 0px 20px;
+}
+
+.premium-card h1 {
+    text-align: center;
+    font-size: 3em;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 20px 0px;
+    margin-bottom: 30px;
+    width: 100%;
+    color: var(--white);
+    background-color: var(--primary);
+}
+
+.premium-card h2 {
+    text-align: center;
+    font-size: 2.5em;
+    color: var(--dark-grey);
+}
+
+.premium-card li {
+    margin: 25px;
+    color: var(--black);
+    font-size: 1.5em;
+    list-style-type: none;
+}
+
+.premium-card li::before {
+    content: url('../assets/checkmark.png');
+    display: inline;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/*=================================================
+                USER REVIEWS 
+=================================================*/
+
+.review-grid {
+    display: grid;
+    grid-template-areas: 
+        "review1 review2"
+        "review3 review2"
+        "review3 review4";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    margin: 50px;
+
+}
+
+#review1 { grid-area: review1;}
+#review2 { grid-area: review2;}
+#review3 { grid-area: review3;}
+#review4 { grid-area: review4;}
+
+.review {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 30px;
+    border: 2px solid var(--grey);
+    border-radius: 15px;
+    margin: 10px;
+    position: relative; /* for positioning google icon absoluetly */
+}
+
+.review>img {
+    width: 50px;
+    height: 50px;
+    border-radius: 250px; 
+    margin: 15px;
+    object-fit: cover;
+}
+
+.review>p+img {
+    position: absolute;
+    top: 0; 
+    right: 0;
+    margin: 20px;
+    width: 30px;
+    object-fit: contain;
+}
+
+.review>h2 {
+    color: var(--black);
+    font-size: 1.5em;
+}
+
+.review>p {
+    font-size: 1.3em;
+    color: var(--dark-grey);
+    padding-left: 25px;
+}

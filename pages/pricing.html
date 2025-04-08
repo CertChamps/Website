@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <head>
-    <title>Pricing</title>
+    <title>CertChamps - Pricing</title>
     <link rel="stylesheet" href="../styles/pricing.css" >
     <link rel="stylesheet" href="../styles/nav-footer.css" >
+    <script src="../scripts/pricing.js" defer ></script>
 </head>
 <body>
+
     <!-- NAVINGATION BAR -->
     <nav>
         <a href="./home.html"><div class="nav-left">
@@ -16,20 +18,126 @@
             <a href="./about.html">About Us</a>
             <a href="./pricing.html">Pricing</a>
             <a href="./careers.html">Careers</a>
-            <a href="googl.com" class="nav-login">Log In</a>
+            <a href="./login.html" class="nav-login">Log In</a>
         </div>
     </nav>
-    <!-- PERK CARDS -->
-    <section class="perk-cards">
-        <div class="free-card">
-            <h1>free</h1>
-            <ul>
-                <li>Unlimited access to posts and forums</li>
-                <li>Access to all Leaving cert maths content</li>
-                <li>Access to all Leaving cert maths content</li>
-            </ul>
+    <!-- PAYMENT PERIOD SELECTOR -->
+    <section class="pricing">
+        <h1>Pricing</h1>
+        <h3>find the <b>perfect</b> plan for you</h3>
+        <div class="periods" id="periods">
+            <button id="month" class="selected">monthly</button>
+            <button id="year">yearly</button>
+            <button id="lifetime">lifetime</button>
         </div>
     </section>
 
-  
+
+    <!-- PERK CARDS -->
+    <section class="perk-cards">
+        <div class="free-card">
+            <h1>FREE</h1>
+            <h2><span style="color: var(--black);">&euro;0</span></h2>
+            <ul>
+                <li>unlimited access to posts and forums</li>
+                <li>access to all Leaving cert maths content</li>
+                <li>join schools and compete in competitions </li>
+            </ul>
+            <a href="./login.html">Get Started &uarr;</a>
+        </div>
+        <div class="premium-card">
+            <h1>Cert<span class="highlight">Champs+</span></h1>
+            <h2 id="per-time"><span style="color: var(--black);" id="price">&euro;3.99</span>/month</h2>
+            <ul>
+                <li>unlimited access to flashcard questions</li>
+                <li>top priority on feeds when you post questions</li>
+                <li>access to all availabe subjects we offer</li>
+                <li>additional customisation features for profile</li>
+            </ul>
+            <a href="./login.html">Get Started &uarr;</a>
+        </div>
+    </section>
+    <!-- REVIEWS -->
+    <section class="reviews">
+        <h1 style="font-size: 3em;">97% of Cert<span class="highlight">Champs+</span> Members have Improved Grades</h1>
+        <div class="review-grid">
+            <div class="review" id="review1">
+                <img alt="profile picture" src="../assets/profile.svg">
+                <h2>Emma K</h2>
+                <p>I genuinely started looking forward to study sessions with CertChamps+.
+                     The daily challenges and streak rewards keep me way more consistent than I ever was before.</p>
+                <img alt="google" src="../assets/google-icon.png">
+            </div>
+            <div class="review" id="review2">
+                <img alt="profile picture" src="../assets/pfp1.jpg">
+                <h2>Ciara O</h2>
+                <p>Before CertChamps, I'd open a book, get overwhelmed, and close it five minutes later. 
+                    Now, I feel like I have a plan — a smart one that adapts to me.
+                    Premium helped me focus on weak spots fast, and the leaderboard climbs and badges make studying feel like actual progress.
+                    I even started using the group timers with friends — it feels more like a team effort now. 
+                    If you're serious about the Leaving Cert, Premium is worth it</p>
+                <img alt="google" src="../assets/google-icon.png">
+            </div>
+            <div class="review"  id="review3">
+                <img alt="profile picture" src="../assets/pfp2.jpg">
+                <h2>Oisín B</h2>
+                <p>Balancing training and study used to feel impossible, but CertChamps+ made it manageable. 
+                    It cuts the fluff and targets exactly what I need. The rotating question sets keep me sharp, 
+                    and the friendly competition keeps me motivated. I've even started studying in short bursts between classes 
+                    — it just fits around my life. Efficient, fun, and effective.</p>
+                <img alt="google" src="../assets/google-icon.png">
+            </div>
+            <div class="review"  id="review4">
+                <img alt="profile picture" src="../assets/profile.svg">
+                <h2>Daragh M</h2>
+                <p>The premium version made a real difference for me. More topics, smarter suggestions, 
+                    and the group study tools? Game-changer.</p>
+                <img alt="google" src="../assets/google-icon.png">
+            </div>
+           
+        </div>
+    </section>
+    <!-- FOOTER -->
+    <section class="footer">
+        <div class="footer-title">
+            <div style="display: flex; align-items: center;" >
+                <img alt="logo" src="../assets/logo.png"  >
+                <h1>Cert<span class="highlight">Champs</span></h1>
+            </div>
+         
+            <p>Download Our App</p>
+            <a href="https://play.google.com/store/games?hl=en" >
+                <img src="../assets/google-play-button.svg" >
+            </a>
+            <a href="https://www.apple.com/ie/app-store/" >
+                <img src="../assets/app-store-button.svg" >
+            </a>
+        </div>
+        <div class="footer-product">
+            <h2>Product</h2>
+            <a href="./home.html" >Overview</a>
+            <a href="./pricing.html" >Pricing</a>
+            <a>Dashboard</a>
+        </div>
+        <div class="footer-company">
+            <h2>Company</h2>
+            <a href="./about.html">About Us</a>
+            <a>Contact Us</a>
+            <a href="./careers.html">Careers</a>
+        </div>
+        <div class="footer-social">
+            <h2>Socials</h2>
+            <a href="https://www.instagram.com/" target="_blank" >Instagram</a>
+            <a href="https://x.com/?lang=en" target="_blank" >Twitter</a>
+            <a href="https://www.facebook.com/" target="_blank" >Facebook</a>
+            <a href="https://ie.linkedin.com/" target="_blank" >Linkedin</a>
+        </div>
+    </section>
+    <div class="footer-bottom">
+        <p>&copy;CertChamps 2025</p>
+        <a href="https://www.instagram.com/" target="_blank" ><img src="../assets/insta-icon.png" width="24px" height="24px"></a>
+        <a href="https://x.com/?lang=en" target="_blank" ><img src="../assets/facebook-icon.png" width="24px" height="24px"></a>
+        <a href="https://www.facebook.com/" target="_blank" ><img src="../assets/twitter-icon.png" width="24px" height="24px"></a>
+        <a href="https://ie.linkedin.com/" target="_blank" ><img src="../assets/linkedin-icon.png" width="24px" height="24px"></a>
+    </div>
 </body>

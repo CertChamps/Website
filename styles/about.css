@@ -92,6 +92,6 @@
 
 #goals>img {
     flex: 2;
-    width: 100%;
+    width: 40%;
     object-fit: contain;
 }
