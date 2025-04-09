@@ -49,18 +49,17 @@ const addJob = function (title) {
     jobContainer.innerHTML += cardHTML; 
 }
 
-const runSearch = function (event) {
+const runSearch = function () {
 
     // Reset job html 
     jobContainer.innerHTML = '';
-
     // Value being searched and filters applied
-    const search = event ? event.target.value.toLowerCase() : '';
+    const searchInput  = search.value.toLowerCase(); // event ? event.target.value.toLowerCase() : '';
     const selected = getFilters();   
-    console.log(selected);
+    
     // filter job array 
-    const results = jobs.filter( job => ( job.name.toLowerCase().includes(search) && selected.includes(job.type)  ));
-    console.log(results);
+    const results = jobs.filter( job => ( job.name.toLowerCase().includes(searchInput) && selected.includes(job.type)  ));
+    
 
     results.forEach( job => {
         // add job into html
@@ -69,7 +68,7 @@ const runSearch = function (event) {
 
 }
 
-runSearch(null); // inialise the search 
+runSearch(); // inialise the search 
 
 search.addEventListener('input', runSearch);
 for ( const filter of filters ) 

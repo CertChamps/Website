@@ -44,6 +44,7 @@
 
 .landing-buttons img:hover {
     filter: brightness(1.5) contrast(0.8);
+    opacity: 0.9;
 }
 
 /*============================================
@@ -96,7 +97,8 @@
     border: 2px solid var(--primary);
     text-decoration: none;
     border-radius: 15px;
-    padding: 10px 25px;
+    padding: 10px 50px;
+    font-weight: bold;
     color: var(--primary);
     font-size: 1em;
     margin: 25px 15px 0px;
@@ -148,13 +150,15 @@
 .stat {
     height: 120px;
     width: 20%;
-    background-color: var(--primary-dark);
+    background-color: var(--primary);
     border-radius: 25px;
     padding: 20px 50px 50px;
+    transition: all 0.4s ease-in-out;
 }
 
 .stat:hover {
     box-shadow: 5px 5px 15px var(--grey);
+    transition: all 0.4s ease-in-out;
 }
 
 .stat>h2 {
@@ -178,7 +182,7 @@
     .stat {
         height: 120px;
         width: 70%;
-        background-color: var(--primary-dark);
+        background-color: var(--primary);
         border-radius: 25px;
         padding: 20px 50px 50px;
         margin: 15px;
@@ -239,7 +243,8 @@
     color: var(--primary);
     font-size: 1em;
     margin: 15px;
-    padding: 10px 25px;
+    padding: 10px 50px;
+    font-weight: bold;
 }
 
 .premium a:hover {

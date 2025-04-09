@@ -1,30 +1,51 @@
-.login{
-    width: 50%;
+/* body {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
     align-items: center;
-    position: relative;
+    justify-content: center;
+} */
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    margin: 0px;
+ 
+    /* height: 550px;
+    border: 2px solid var(--grey);
+    border-radius: 25px;
+    box-shadow: 15px 15px 30px var(--grey); */
 }
 
-.login>img {
+.login{
+    /* width: 450px; */
+    flex: 1;
+    margin: 0px;
+}
+
+.login>a>img {
     width: 100%;
-    margin: auto;
+    margin: 10px auto;
+    border-top-left-radius: 22px;
     height: 60px;
     object-fit: contain;
 
 }
 
-.login>h1 { font-size: 3em; text-align: center; color: var(--black);}
-
-.login>h2 { font-size: 2.5em; text-align: center;  color: var(--black);}
-
-.login>p {
-    margin: 5px 5%;
-    font-weight: bold;
-    color: var(--dark-grey);
+.login>a>h1 { 
+    font-size: 3em; 
+    text-align: center; 
+    color: var(--black);
+ 
 }
+
+.login>h2 { font-size: 2em; text-align: center;  color: var(--black);}
+
 
 .login>input {
     width: 70%;
-    margin: 5px 10%;
+    margin: 10px 60px;
     padding: 10px 20px;
     border-radius: 15px;
     border: none;
@@ -34,10 +55,81 @@
 }
 
 .login>a {
+    display: block;
+    width: 100%; 
+    text-decoration: none;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+.login>input+a {
+    padding: 5px 20px;
+    color: var(--dark-grey);
+}
+.login>a>p {
+    width: 80%;
     text-align: center;
-    width: 100px;
-    border: 3px solid var(--grey);
-    background-color: blacks;
+    margin: 20px auto;
+    color: var(--white);
+    padding: 10px 20px;
+    font-size: 1.4em;
+    border-radius: 15px;
+}
+
+#login {
+    background-color: #DB4437;
+}
+#google {
+    background-color: #4285F4;
+}
+
+#apple {
+    background-color: var(--black);
+}
+#google::before {
+    content: url('../assets/google-white-icon.svg');
+    display: inline;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+#apple::before {
+    content: url('../assets/apple-icon.svg');
+    width: 40px;
+    display: inline;
+    margin-right: 10px;
+    vertical-align: middle;
 }
 
 
+.login>p {
+    display: inline;
+    margin: 5px 5%;
+    font-weight: bold;
+    color: var(--dark-grey);
+    border: none;
+}
+
+.container>img {
+    width: 60%;
+   height: 100%;
+    /* border-top-right-radius: 22px;
+    border-bottom-right-radius: 22px; */
+    z-index: -10;
+    object-fit: cover;
+}
+
+#email-error, #password-error {
+    display: inline;
+    color: #d77268;
+}
+
+@media only screen and (max-width: 900px) {
+    .container>img {
+        display: none;
+    }
+    .container {
+        overflow-x: hidden;
+    }
+}
