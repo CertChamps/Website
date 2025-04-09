@@ -2,7 +2,7 @@
                     CAREERS
 =================================================*/
 .careers {
-    padding: 140px 140px 50px;
+    padding: 140px 10px 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,7 +23,7 @@
 }
 
 .careers input {
-    margin: 20px;
+    margin: 10px;
     padding: 10px;
     width: 30%;
     border: 2px solid var(--dark-grey);
@@ -38,6 +38,15 @@
     transition: all 0.5s ease-in-out;
 }
 
+@media only screen and (max-width: 850px) {
+    .careers input {
+        width: 50%;
+    }
+
+    .careers input:focus {
+        width: 60%;
+    }
+}
 /*=================================================
                     JOB SEARCH
 =================================================*/
@@ -118,4 +127,17 @@
     background-color: #E9E9E9;
     color: var(--dark-grey);
     border-radius: 10px;
+}
+
+@media only screen and (max-width: 850px) {
+    .filter {
+        display: none;
+    }
+    .job {
+        width: 80%;
+        margin: 20px 0px;
+    }
+    .tags {
+        font-size: 0.7em;
+    }
 }

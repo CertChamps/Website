@@ -3,6 +3,9 @@
 =================================================*/
 .pricing {
     padding: 140px 140px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .pricing h1, .reviews h1 {
@@ -19,13 +22,14 @@
 }
 
 .periods {
+
     display: flex;
     justify-content: center;
     width: 400px;
     border: 2px solid var(--grey);
     border-radius: 15px;
-    background-color: #FBFBFB;
-    margin: 30px auto 0px;
+    background-color: #F9F9F9;
+    margin: 30px 0px;
 }
 
 .periods button {
@@ -53,7 +57,7 @@
 .perk-cards {
     padding: 0px 100px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: end;
     margin-bottom: 50px;
 }
@@ -83,6 +87,7 @@
     border: 3px solid var(--grey);
     border-radius: 25px;
     padding: 20px;
+    margin: 20px;
 }
 
 .free-card h1 {
@@ -115,6 +120,7 @@
     border: 3px solid var(--primary);
     box-shadow: 5px 5px 25px var(--grey);
     border-radius: 25px;
+    margin: 20px;
     padding: 0px 0px 20px;
 }
 
@@ -150,6 +156,17 @@
     vertical-align: middle;
 }
 
+
+@media only screen and (max-width: 850px) {
+    .perk-cards {
+        flex-direction: column;
+        align-items: center;
+        padding: 0px 10px;
+    }
+    .perk-cards a {
+        width: 75%;
+    }
+}
 /*=================================================
                 USER REVIEWS 
 =================================================*/
@@ -208,4 +225,12 @@
     font-size: 1.3em;
     color: var(--dark-grey);
     padding-left: 25px;
+}
+
+@media only screen and (max-width: 750px) {
+    #review2, #review4 {display: none;}
+
+    .review-grid {
+        display: block;
+    }
 }

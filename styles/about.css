@@ -32,6 +32,15 @@
     background-color: var(--primary);
     color: var(--secondary);
 }
+
+@media only screen and (max-width: 850px) {
+    .intro { 
+        padding: 150px 20px 0px; 
+    }
+    .intro h1 {
+        text-align: center;
+    }
+}
 /*============================================
                 TEAM MEMBERS
 ============================================*/
@@ -50,13 +59,10 @@
     border-radius: 30px;
     border: 4px solid var(--primary-dark);
     box-shadow: 5px 5px 25px var(--grey);
-    transition: all 0.5s ease-in-out;
 }
 
 .member:hover {
-    box-shadow: 5px 5px 25px var(--dark-grey);
-    width: 36%;
-    transition: all 0.5s ease-in-out;
+    box-shadow: 3px 3px 10px var(--grey);
 }
 .member img {
     object-fit: cover;
@@ -81,6 +87,24 @@
     font-weight: 500;
 }
 
+@media only screen and (max-width: 850px) {
+    .team {
+        flex-direction: column;
+        align-items: center;
+    }
+    .member {
+        width: 80%;
+        margin-bottom: 30px;
+    }
+    .member:hover {
+        box-shadow: 5px 5px 30px var(--grey);
+    }
+}
+
+/*============================================
+                TEAM MEMBERS
+============================================*/
+
 #goals {
     padding: 20px 150px;
     display: flex;
@@ -94,4 +118,19 @@
     flex: 2;
     width: 40%;
     object-fit: contain;
+}
+
+@media only screen and (max-width: 850px) {
+    #goals {
+        padding: 20px 30px;
+    }
+
+    #goals>div {
+        flex: 1;
+    }
+    
+    #goals>img {
+        flex: 0;
+       display: none;
+    }
 }
