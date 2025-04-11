@@ -38,7 +38,6 @@ const addJob = function (title, type) {
     cardHTML = `
     <div class="job">
         <h3>${title}</h3>
-        <a>read more &rarr;</a>
         <div class="tags">
             <p>remote</p>
             <p>${type}</p>

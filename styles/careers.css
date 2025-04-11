@@ -96,7 +96,7 @@
 
 .job:hover {
     border: 1px solid var(--primary);
-    box-shadow: 5px 5px 20px var(--grey);
+    box-shadow: 2px 2px 30px #DDDDDD;
     transition: all 0.2s ease-in-out;
 }
 
