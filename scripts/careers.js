@@ -32,7 +32,7 @@ const getFilters = function () {
     
     return selected;
 }
-const addJob = function (title) { 
+const addJob = function (title, type) { 
 
     // dynamic html 
     cardHTML = `
@@ -41,7 +41,7 @@ const addJob = function (title) {
         <a>read more &rarr;</a>
         <div class="tags">
             <p>remote</p>
-            <p>part-time</p>
+            <p>${type}</p>
         </div>        
     </div>`;
 
@@ -63,7 +63,7 @@ const runSearch = function () {
 
     results.forEach( job => {
         // add job into html
-        addJob(job.name);
+        addJob(job.name, job.type);
     });
 
 }
