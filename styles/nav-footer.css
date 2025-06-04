@@ -17,7 +17,7 @@ STYLES INITIALISATION - FONT AND COLOUR PALLETE
 * {
     font-family: "Outfit", sans-serif;
     margin: 0px;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
 }
 
 body {

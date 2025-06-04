@@ -149,7 +149,7 @@
 }
 
 .stat {
-    height: 140px;
+    /* height: 140px; */
     width: 20%;
     background-color: var(--primary);
     border-radius: 25px;
@@ -181,7 +181,7 @@
     }
 
     .stat {
-        height: 140px;
+        /* height: 140px; */
         width: 70%;
         background-color: var(--primary);
         border-radius: 25px;
@@ -238,6 +238,7 @@
 }
 
 .premium a {
+    display: inline-block;
     border: 2px solid var(--primary);
     text-decoration: none;
     border-radius: 15px;
