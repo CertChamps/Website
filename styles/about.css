@@ -87,6 +87,14 @@
     font-weight: 500;
 }
 
+.member p {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: var(--dark-grey);
+    background-color: var(--primary);
+    text-align: center;
+}
+
 @media only screen and (max-width: 850px) {
     .team {
         flex-direction: column;
