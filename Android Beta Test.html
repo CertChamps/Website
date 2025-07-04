@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Android Beta Test</title>
+   <link rel="stylesheet" href="../styles/nav-footer.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }   
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f9f9f9;
+    }
+    h1 {
+        font-size: 50px;
+    }
+    .container {
+      text-align: center;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="./assets/logo.png" width="200" height="200" style="object-fit: contain;" />
+    <h1>Your download will begin shortly...</h1>
+    <p>
+      <a onclick="triggerDownload()" style="color: blue;">click here</a> if your download doesn't work.
+    </p>
+  </div>
+
+  <script>
+    function triggerDownload() {
+      const link = document.createElement('a');
+      link.href = 'https://docs.google.com/uc?export=download&id=1Sc15uqWdmPPLUKKD-aYqCIKuPzlFIsoh'; // Replace with your file URL
+      link.download = 'CertChamps.apk';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Automatically start the download after a short delay
+    setTimeout(triggerDownload, 1000);
+  </script>
+</body>
+</html>
