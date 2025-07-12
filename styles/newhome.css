@@ -1,0 +1,328 @@
+.gold { color: var(--secondary);}
+
+/* fade ins */
+.fade-in-target {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.fade-in-target.visible {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+
+.hidden {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* ------------------- LANDING ----------------- */ 
+.landing {
+    width: 95%;
+    max-width: 1500px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    justify-content: space-around;
+    background-color: var(--white);
+    padding: 120px 0px 24px;
+    margin: auto;
+}
+
+.landing-left {
+  
+    width: 800px;
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.landing-right {
+    
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.landing-left>h1 {
+    font-size: 55px;
+    color: var(--black);
+}
+
+.landing-left p {
+    font-size: 24px;
+    color: var(--dark-grey);
+    margin: 10px 0px 35px;
+}
+
+.landing a {
+    font-size: 24px;
+    padding: 15px 25px;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 10px;
+}
+
+.landing-left>div {
+    padding: 20px;
+}
+.landing-right>img {
+    margin: auto;
+    padding: 0px 25px;
+    width: 200px;
+    height: 400px;
+    object-fit: contain;
+}
+
+/* ------------------- PRACTICE ----------------- */ 
+.practice {
+    width: 90%;
+    max-width: 1500px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: var(--white);
+    margin: auto;
+
+    border-radius: 25px;
+}
+
+.practice-left {
+    padding: 25px;
+    
+}
+.practice-left h1 {
+    font-size: 55px;
+    text-align: right;
+    color: var(--primary);
+}
+
+.practice-left p {
+    text-align: right;
+    font-size: 24px;
+    align-self: center;
+    color: var(--dark-grey);
+    margin: 10px 0px 35px;
+}
+
+.practice-right img {
+    width: 700px;
+}
+/* ------------------- COLLABORATE ----------------- */ 
+.collaborate {
+    width: 90%;
+    max-width: 1500px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-around;
+    background-color: var(--white);
+    padding: 50px 0px 10px;
+    background-image: radial-gradient(
+        farthest-corner at -500px -500px,
+        #DDA85333 0%,
+        #DDA85300 60%
+    );
+    border-radius: 25px;
+    margin: auto;
+}
+
+.collab-left {
+    margin: 25px;
+}
+.collab-left h1 {
+    font-size: 55px;
+    color: var(--secondary);
+}
+
+.collab-left p {
+    font-size: 24px;
+    align-self: center;
+    color: var(--dark-grey);
+    margin: 10px 25px 35px;
+}
+
+.collab-right>div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 2px solid var(--grey);
+    border-radius: 15px;
+    padding: 20px 0px;
+    margin: 15px;
+    width: 500px;
+    background-color: var(--white);
+}
+
+.collab-right p {
+    color: var(--dark-grey);
+}
+
+.p1 {
+    width: 30px; height: 30px; border-radius: 100px;
+    background-color: #F3D1A8; 
+    margin: 0px 10px;
+}
+.p2 {
+    margin: 0px 10px;
+    min-width: 30px; height: 30px; border-radius: 0px; border-radius: 100px;
+    background-color: #5D77BC; 
+}
+
+/* ------------------- RANK ----------------- */ 
+.rank {
+    width: 90%;
+    max-width: 1500px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: var(--white);
+    padding: 50px 0px 10px;
+    background-image: radial-gradient(
+        farthest-corner at -500px -500px,
+        #3269ad33 0%,
+        #3269ad00 60%
+    );
+    border-radius: 25px;
+    margin: auto;
+}
+.rank-left {
+    margin: 25px 0px;
+}
+.rank-left h1 {
+    font-size: 55px;
+    text-align: right;
+    color: var(--primary);
+}
+
+.rank-left p {
+    text-align: right;
+    font-size: 24px;
+    align-self: center;
+    color: var(--dark-grey);
+    margin: 10px 0px 35px;
+}
+
+.rank-right {
+    min-width: 650px;
+}
+
+.progress {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.progress p {
+    text-align: center;
+    color: var(--dark-grey);
+}
+.progress1 {
+    stroke: #e5b64a; stroke-dasharray: 345; stroke-dashoffset: 120; transform: rotate(-90deg);
+    animation: prog1 linear forwards;
+    animation-timeline: view(150px 150px);
+}
+.progress2 {
+    stroke: #e5b64a; stroke-dasharray: 345; stroke-dashoffset: 80; transform: rotate(-90deg);
+    animation: prog2 linear forwards;
+    animation-timeline: view(150px 150px);
+}
+.progress3 {
+    stroke: #e5644a; stroke-dasharray: 345; stroke-dashoffset: 150; transform: rotate(-90deg);
+    animation: prog3 linear forwards;
+    animation-timeline: view(150px 150px);
+}
+
+@keyframes prog1 {to { stroke-dashoffset: 40; stroke: #59e54a;}}
+@keyframes prog2 {to { stroke-dashoffset: 0; stroke: #59e54a;}}
+@keyframes prog3 {to { stroke-dashoffset: 110;  stroke: #e5b64a}}
+
+
+/* ------------------- BETAAAa ----------------- */ 
+.beta {
+    width: 90%;
+    max-width: 1500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.beta h1 {
+   font-size: 60px;
+   text-align: center;
+    color: var(--black); 
+}
+
+.beta p {
+    color: var(--dark-grey);
+    text-align: center;
+    font-size: 20px;
+    margin: 10px;
+}
+
+#discord { 
+    height: 55px;
+    width: 200px;
+    background-color: #5865F2;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+#discord:hover {
+    opacity: 0.9;
+}
+
+#discord>img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain; 
+    padding: 0px 5px; margin: 0px;
+}
+
+#discord>p, #discord {
+    text-decoration: none;
+    font-weight: bold;
+    color: #FFFFFF;
+    font-size: 26px;
+    padding: 0px 5px;
+}
+
+@media only screen and (max-width: 1200px) {
+    .landing img, .practice img, .rank img {
+        visibility: hidden;
+        width: 0px; height: 0px;
+    }
+    .landing,.rank,.collaborate,.practice {
+        width: 90%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .landing-left, .collab-right>div{
+        width: 80%; min-width: 320px; margin: 10px auto;
+    }
+    .rank-right {
+        min-width: 320px; 
+    }
+    h1, p, .practice-left p, .practice-left h1, .rank-left p, .rank-left h1 {
+        text-align: center;
+    }
+    h1, .practice-left h1, .rank-left h1, .collab-left h1, .landing-left h1 {
+        font-size: 35px;
+    }
+}
