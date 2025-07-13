@@ -29,6 +29,58 @@ html {
   scroll-behavior: smooth;
 }
 
+/*============================================
+               LANDING STYLES
+============================================*/
+.landing1 {
+    background-color: var(--primary);
+    padding: 140px 25px 25px 25px;
+    
+}
+
+.landing1>img {
+    object-fit: contain;
+    width: 100%; 
+    height: 250px;
+    padding: 0px;
+    margin: auto;
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.landing1>h1{
+    text-align: center;
+    font-size: 3em;
+    font-weight: 800px;
+    padding-bottom: 5px;
+    color: var(--white);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.landing1>p {
+    text-align: center;
+    font-size: 1.5em;
+    color: var(--grey);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.landing-buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+.landing-buttons img{
+    width: 170px;
+    height: 60px;
+    object-fit: cover;
+    margin: 10px;
+
+}
+
+.landing-buttons img:hover {
+    filter: brightness(1.5) contrast(0.8);
+    opacity: 0.9;
+}
 
 /* ------------------- LANDING ----------------- */ 
 .landing {
@@ -40,23 +92,21 @@ html {
     justify-content: space-around;
     background-color: var(--white);
     padding: 120px 0px 24px;
-    background-image: radial-gradient(
+    /* background-image: radial-gradient(
         farthest-corner at 300px 250px,
         #DDA85311 0%,
         #DDA85300 70%
-    );
+    ); */
     border-radius: 25px;
     margin: auto;
 }
 
 .landing-left {
     width: 800px;
-    transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 .landing-right {
     display: flex;
-    transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 .landing-left>h1 {
@@ -191,12 +241,12 @@ html {
     align-items: center;
     justify-content: space-around;
     background-color: var(--white);
-    padding: 50px 0px 10px;
-    background-image: radial-gradient(
+    padding: 25px 0px 10px;
+    /* background-image: radial-gradient(
         farthest-corner at -500px -500px,
         #DDA85333 0%,
-        #DDA85300 60%
-    );
+        #DDA85300 80%
+    ); */
     border-radius: 25px;
     margin: auto;
 }
@@ -253,14 +303,14 @@ html {
     align-items: center;
     justify-content: space-around;
     background-color: var(--white);
-    padding: 50px 0px 10px;
-    background-image: radial-gradient(
+    padding: 5px 0px 10px;
+    /* background-image: radial-gradient(
         farthest-corner at -500px -500px,
         #3269ad33 0%,
-        #3269ad00 60%
-    );
+        #3269ad00 80%
+    ); */
     border-radius: 25px;
-    margin: auto;
+    margin: 10px auto;
 }
 .rank-left {
     margin: 25px 0px;

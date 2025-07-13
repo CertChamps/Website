@@ -39,11 +39,11 @@ nav {
     position: fixed;
     align-items: center;
     justify-content: center;
-    background-color: var(--white);
+    background-color: var(--primary);
     height: 70px;
     width: 100%;
     z-index: 100; /* ensure it is always on top */
-    border: 1px solid var(--grey)
+    /* border: 1px solid var(--grey) */
 }
 
 nav img {
@@ -53,12 +53,12 @@ nav img {
 
 nav h1 {
     display: inline;
-    color: var(--black);
+    color: var(--white);
     padding-left: 10px;
 }
 
 nav a {
-    color: var(--black);
+    color: var(--white);
     font-size: 1.1em;
     text-decoration: none;
     margin-right: 20px;
