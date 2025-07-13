@@ -32,7 +32,7 @@ html {
 
 /* ------------------- LANDING ----------------- */ 
 .landing {
-    width: 95%;
+    width: 100%;
     max-width: 1500px;
     display: flex;
     flex-direction: row-reverse;
@@ -40,23 +40,29 @@ html {
     justify-content: space-around;
     background-color: var(--white);
     padding: 120px 0px 24px;
+    background-image: radial-gradient(
+        farthest-corner at 300px 250px,
+        #DDA85311 0%,
+        #DDA85300 70%
+    );
+    border-radius: 25px;
     margin: auto;
 }
 
 .landing-left {
-  
     width: 800px;
     transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 .landing-right {
-    
+    display: flex;
     transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 .landing-left>h1 {
     font-size: 55px;
     color: var(--black);
+    font-weight: 800;
 }
 
 .landing-left p {
@@ -106,6 +112,7 @@ html {
     font-size: 55px;
     text-align: right;
     color: var(--primary);
+    font-weight: 800;
 }
 
 .practice-left p {
@@ -116,9 +123,65 @@ html {
     margin: 10px 0px 35px;
 }
 
-.practice-right img {
-    width: 700px;
+.practice-right {
+    position: relative;
+    min-width: 700px;
+    height: 530px;
+   
+    contain: paint;
 }
+
+.fade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, #FAFAFA 0%, transparent 10%);
+  z-index: 10; /* above all .card elements */
+  pointer-events: none;
+}
+.card {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 560px; object-fit: contain;
+}
+
+.card1 {
+    z-index: 3;
+    transform: translateY(60px);
+    animation: card1anim linear forwards;
+    animation-timeline: view(150px 150px);
+}
+
+@keyframes card1anim {
+    to { transform: translate(15px 60px)}
+}
+
+.card2 {
+    transform: translate(50px, 60px) rotate(3deg);
+    transform-origin: 50% 100%;
+    z-index: 2;
+    animation: card2anim linear forwards;
+    animation-timeline: view(150px 150px);
+}
+
+@keyframes card2anim {
+    to { transform: translate(120px, 63px) rotate(10.5deg);}
+}
+
+.card3 {
+     transform: translate(100px, 60px) rotate(8.5deg);
+    transform-origin: 50% 100%;
+    z-index: 1;
+    animation: card3anim linear forwards;
+    animation-timeline: view(150px 150px);
+}
+
+@keyframes card3anim {
+    to { transform: translate(175px, 76px) rotate(25deg);}
+}
+
 /* ------------------- COLLABORATE ----------------- */ 
 .collaborate {
     width: 90%;
@@ -144,6 +207,7 @@ html {
 .collab-left h1 {
     font-size: 55px;
     color: var(--secondary);
+     font-weight: 800;
 }
 
 .collab-left p {
@@ -205,6 +269,7 @@ html {
     font-size: 55px;
     text-align: right;
     color: var(--primary);
+     font-weight: 800;
 }
 
 .rank-left p {
@@ -263,6 +328,7 @@ html {
    font-size: 60px;
    text-align: center;
     color: var(--black); 
+     font-weight: 800;
 }
 
 .beta p {

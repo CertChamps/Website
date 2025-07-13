@@ -43,7 +43,7 @@ nav {
     height: 70px;
     width: 100%;
     z-index: 100; /* ensure it is always on top */
-    /* border: 2px solid var(--grey) */
+    border: 1px solid var(--grey)
 }
 
 nav img {
