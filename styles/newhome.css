@@ -242,7 +242,7 @@ html {
     justify-content: space-around;
     background-color: var(--white);
     padding: 25px 0px 10px;
-    /* background-image: radial-gradient(
+/*     background-image: radial-gradient(
         farthest-corner at -500px -500px,
         #DDA85333 0%,
         #DDA85300 80%
@@ -304,7 +304,7 @@ html {
     justify-content: space-around;
     background-color: var(--white);
     padding: 5px 0px 10px;
-    /* background-image: radial-gradient(
+/*     background-image: radial-gradient(
         farthest-corner at -500px -500px,
         #3269ad33 0%,
         #3269ad00 80%
