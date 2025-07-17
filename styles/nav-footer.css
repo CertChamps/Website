@@ -79,7 +79,6 @@ nav a:hover {
 
 .nav-left {
     display: flex;
-    flex: 50%;
     justify-content: flex-start;
     align-items: center;
     margin: 0px 50px;
@@ -88,8 +87,8 @@ nav a:hover {
 }
 
 .nav-right{
+    background-color: #275899;
     display: flex;
-    flex: 50%;
     justify-content: flex-end;
     align-items: center;
     margin: 0px 50px;

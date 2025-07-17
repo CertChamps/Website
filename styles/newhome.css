@@ -441,4 +441,11 @@ html {
     h1, .practice-left h1, .rank-left h1, .collab-left h1, .landing-left h1 {
         font-size: 35px;
     }
+    .practice-right {
+    position: relative;
+    min-width: 0px; width: 0px;
+    height: 0px;
+   
+    contain: paint;
+    }
 }
