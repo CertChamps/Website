@@ -38,11 +38,12 @@ nav {
     display: flex;
     position: fixed;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     background-color: var(--primary);
     height: 70px;
     width: 100%;
-    z-index: 100; /* ensure it is always on top */
+    z-index: 100;
+     /* ensure it is always on top */
     /* border: 1px solid var(--grey) */
 }
 
@@ -81,17 +82,23 @@ nav a:hover {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 0px 50px;
+
     text-decoration: none;
-  
+    margin: 10px;
 }
 
 .nav-right{
-    background-color: #275899;
+
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin: 0px 50px;
+   margin: 10px;
+}
+
+@media only screen and (max-width: 950px ){
+    .nav-left, .nav-right{
+        margin: 0px;
+    }
 }
 
 /* @media only screen and (max-width: 950px) {
