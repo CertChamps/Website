@@ -87,6 +87,7 @@ a:hover {
 #apple {
     background-color: var(--black);
 }
+
 #google::before {
     content: url('../assets/google-white-icon.svg');
     display: inline;

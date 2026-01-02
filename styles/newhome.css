@@ -212,36 +212,33 @@ html {
 .card1 {
     z-index: 3;
     transform: translateY(60px);
-    animation: card1anim linear forwards;
-    animation-timeline: view(150px 150px);
-}
-
-@keyframes card1anim {
-    to { transform: translate(15px 60px)}
+    transition: transform 0.8s ease;
 }
 
 .card2 {
     transform: translate(100px, 60px) rotate(3deg);
     transform-origin: 50% 100%;
     z-index: 2;
-    animation: card2anim linear forwards;
-    animation-timeline: view(150px 150px);
-}
-
-@keyframes card2anim {
-    to { transform: translate(120px, 63px) rotate(10.5deg);}
+    transition: transform 0.8s ease;
 }
 
 .card3 {
      transform: translate(160px, 60px) rotate(8.5deg);
     transform-origin: 50% 100%;
     z-index: 1;
-    animation: card3anim linear forwards;
-    animation-timeline: view(150px 150px);
+    transition: transform 0.8s ease;
 }
 
-@keyframes card3anim {
-    to { transform: translate(175px, 76px) rotate(25deg);}
+.cards-animate .card1 {
+    transform: translate(15px, 60px);
+}
+
+.cards-animate .card2 {
+    transform: translate(120px, 63px) rotate(10.5deg);
+}
+
+.cards-animate .card3 {
+    transform: translate(175px, 76px) rotate(25deg);
 }
 
 /* ------------------- COLLABORATE ----------------- */ 
@@ -428,6 +425,41 @@ html {
     color: #FFFFFF;
     font-size: 26px;
     padding: 0px 5px;
+}
+
+/* ================= PROGRESS RINGS ================= */
+.rank-right {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress svg {
+    transform: rotate(-90deg);
+    overflow: visible;
+}
+
+.progress circle {
+    stroke: var(--grey);
+    stroke-dasharray: 345;
+    stroke-dashoffset: 345;
+    transition: stroke-dashoffset 0.9s ease;
+}
+
+.progress .progress-ring circle {
+    stroke: var(--primary);
+}
+
+.progress.animate .progress-ring circle {
+    stroke: var(--primary);
 }
 
 #try-out{
