@@ -598,6 +598,7 @@ html {
 }
 
 #try-out{
+
     text-decoration: none; 
     display: block;
     max-width: 300px;
@@ -614,6 +615,66 @@ html {
     background-color: #2c5e9b;
 }
 
+/* Video Player Styles */
+
+.video-player-section {
+    width: 100%;
+    margin: 40px auto 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1600px;
+}
+
+.video-player-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.video-player-text {
+    max-width: 500px;
+    text-align: left;
+}
+
+.video-title {
+    font-size: 55px;
+    color: var(--black);
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.video-desc {
+    font-size: 24px;
+    color: var(--dark-grey);
+    margin-bottom: 0;
+}
+
+.video-player-container {
+    background: #fff;
+    border-radius: 25px;
+    padding: 16px;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: inline-block;
+    text-align: center;
+    border: 2px solid rgba(189, 189, 189, 0.4);
+    border-right: 6px solid rgba(189, 189, 189, 0.4);
+    border-bottom: 6px solid rgba(189, 189, 189, 0.4);
+}
+
+.styled-video-player {
+    width: 100%;
+    max-width: 1000px;
+    border-radius: 25px;
+    outline: none;
+    display: block;
+    margin: 0 auto;
+}
 
 @media only screen and (max-width: 1200px) {
     .landing img, .practice img, .rank img {
