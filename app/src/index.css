@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* CertChamps global theme */
+@theme {
+  --font-family-sans: Helvetica, Arial, sans-serif;
+  --color-white: #fff;
+  --color-black: #353535;
+  --color-gold: #f9a216;
+  --color-blue: #185196;
+  /* shadcn-style tokens for components/ui */
+  --color-background: #fff;
+  --color-foreground: #353535;
+  --color-primary: #185196;
+  --color-primary-foreground: #fff;
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+  --color-accent: #f4f4f5;
+  --color-accent-foreground: #353535;
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #fff;
+  --color-border: #e4e4e7;
+  --color-input: #e4e4e7;
+  --color-ring: #185196;
+}
+
+:root {
+  --color-white: #fff;
+  --color-black: #353535;
+  --color-gold: #f9a216;
+  --color-blue: #185196;
+  --color-background: #fff;
+  --color-foreground: #353535;
+  --color-primary: #185196;
+  --color-primary-foreground: #fff;
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+  --color-accent: #f4f4f5;
+  --color-accent-foreground: #353535;
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #fff;
+  --color-border: #e4e4e7;
+  --color-input: #e4e4e7;
+  --color-ring: #185196;
+}
+
+html,
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  height: 100%;
+  font-family: Helvetica, Arial, sans-serif;
+  color: var(--color-black);
+  background-color: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Container for shadcn-style components */
+.container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+@media (min-width: 640px) {
+  .container { max-width: 640px; }
+}
+@media (min-width: 768px) {
+  .container { max-width: 768px; }
+}
+@media (min-width: 1024px) {
+  .container { max-width: 1024px; }
+}
+@media (min-width: 1280px) {
+  .container { max-width: 1280px; }
+}
+@media (min-width: 1536px) {
+  .container { max-width: 1536px; }
+}
+
+/* Grid layer – GPU compositing, transform driven by requestAnimationFrame in App.jsx */
+.grid-pan {
+  will-change: transform;
+  backface-visibility: hidden;
+}
