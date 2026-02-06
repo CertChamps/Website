@@ -1,7 +1,14 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Package, Calendar, Sparkles, Zap } from "lucide-react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import {
+  ArrowUpRight,
+  Package,
+  Calendar,
+  Sparkles,
+  Zap,
+  ChevronDown,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export type TimeLine_01Entry = {
@@ -22,6 +29,18 @@ export interface TimeLine_01Props {
   description?: string;
   entries?: TimeLine_01Entry[];
   className?: string;
+  themeActive?: boolean;
+  theme?: {
+    bg: string;
+    text: string;
+    textMuted: string;
+    accent: string;
+    cardBg: string;
+    cardBorder: string;
+    shimmer: string;
+    buttonBg: string;
+    buttonText: string;
+  };
 }
 
 export const defaultEntries: TimeLine_01Entry[] = [
@@ -96,147 +115,152 @@ export const defaultEntries: TimeLine_01Entry[] = [
   },
 ];
 
-/**
- * Behavior: Only the card that is currently centered in the viewport is "open".
- * As you scroll, the active card expands to reveal its full content. Others stay collapsed.
- */
 export default function TimeLine_01({
   title = "What's new",
   description = "Stay up to date with the latest features and improvements in CertChamps — built to help you practice maths and ace the Leaving Cert.",
   entries = defaultEntries,
+  themeActive = false,
+  theme,
 }: TimeLine_01Props) {
+  const t = themeActive && theme ? theme : null;
   const [activeIndex, setActiveIndex] = useState(0);
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const sentinelRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [revealed, setRevealed] = useState<Set<number>>(new Set());
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const displayEntries = entries.slice(0, 3);
 
-  const setItemRef = (el: HTMLDivElement | null, i: number) => {
-    itemRefs.current[i] = el;
-  };
-  const setSentinelRef = (el: HTMLDivElement | null, i: number) => {
-    sentinelRefs.current[i] = el;
-  };
+  const setCardRef = useCallback((el: HTMLDivElement | null, i: number) => {
+    cardRefs.current[i] = el;
+  }, []);
 
+  // Track which image cards have scrolled into view (one-time reveal)
   useEffect(() => {
-    if (!sentinelRefs.current.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = cardRefs.current.indexOf(
+              entry.target as HTMLDivElement
+            );
+            if (idx !== -1) {
+              setRevealed((prev) => new Set(prev).add(idx));
+              observer.unobserve(entry.target);
+            }
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    cardRefs.current.forEach((node) => {
+      if (node) observer.observe(node);
+    });
+
+    return () => observer.disconnect();
+  }, [displayEntries.length]);
+
+  // Track which sidebar section should be active based on scroll
+  useEffect(() => {
+    if (!cardRefs.current.length) return;
 
     let frame = 0;
-    const updateActiveByProximity = () => {
-      frame = requestAnimationFrame(updateActiveByProximity);
-      const centerY = window.innerHeight / 3;
-      let bestIndex = 0;
+    const update = () => {
+      frame = requestAnimationFrame(update);
+      const target = window.innerHeight * 0.4;
+      let best = 0;
       let bestDist = Infinity;
-      sentinelRefs.current.forEach((node, i) => {
+      cardRefs.current.forEach((node, i) => {
         if (!node) return;
         const rect = node.getBoundingClientRect();
         const mid = rect.top + rect.height / 2;
-        const dist = Math.abs(mid - centerY);
+        const dist = Math.abs(mid - target);
         if (dist < bestDist) {
           bestDist = dist;
-          bestIndex = i;
+          best = i;
         }
       });
-      if (bestIndex !== activeIndex) setActiveIndex(bestIndex);
+      setActiveIndex((prev) => (prev !== best ? best : prev));
     };
 
-    frame = requestAnimationFrame(updateActiveByProximity);
+    frame = requestAnimationFrame(update);
     return () => cancelAnimationFrame(frame);
-  }, [activeIndex]);
-
-  useEffect(() => {
-    setActiveIndex(0);
   }, []);
 
   return (
-    <section className="py-32">
+    <section className="py-32 pt-40">
       <div className="container">
-        <div className="mx-auto max-w-3xl">
-          <h1 className="mb-4 text-3xl font-bold tracking-tight md:text-5xl">
-            {title}
-          </h1>
-          <p className="mb-6 text-base text-muted-foreground md:text-lg">
-            {description}
-          </p>
-        </div>
+        <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[340px_1fr] lg:gap-14">
+          {/* -------- LEFT: sticky sidebar -------- */}
+          <aside className="lg:sticky lg:top-28 lg:self-start">
+            <div className="mb-8">
+              <h1 className="mb-3 text-3xl font-bold tracking-tight md:text-4xl transition-colors duration-700" style={{ color: t ? t.text : undefined }}>
+                {title}
+              </h1>
+              <p className="text-sm leading-relaxed text-muted-foreground md:text-base transition-colors duration-700" style={{ color: t ? t.textMuted : undefined }}>
+                {description}
+              </p>
+            </div>
 
-        <div className="mx-auto mt-16 max-w-3xl space-y-16 md:mt-24 md:space-y-24">
-          {entries.map((entry, index) => {
-            const isActive = index === activeIndex;
-
-            return (
-              <div
-                key={index}
-                className="relative flex flex-col gap-4 md:flex-row md:gap-16"
-                ref={(el) => setItemRef(el, index)}
-                aria-current={isActive ? "true" : "false"}
-              >
-                <div className="top-8 flex h-min w-64 shrink-0 items-center gap-4 md:sticky">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`rounded-lg p-2 ${
-                        isActive
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-muted text-muted-foreground"
-                      }`}
-                    >
-                      <entry.icon className="h-4 w-4" />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium">
-                        {entry.title}
-                      </span>
-                      <span className="text-xs text-muted-foreground">
-                        {entry.subtitle}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  ref={(el) => setSentinelRef(el, index)}
-                  aria-hidden
-                  className="absolute -top-24 left-0 h-12 w-12 opacity-0"
-                />
-
-                <article
-                  className={
-                    "flex flex-col rounded-2xl border p-3 transition-all duration-300 " +
-                    (isActive
-                      ? "border-gray-50 dark:border-gray-800 bg-gray-50 dark:bg-black shadow-lg"
-                      : "border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-black")
-                  }
-                >
-                  {entry.image && (
-                    <img
-                      src={entry.image}
-                      alt={`${entry.title} visual`}
-                      className="mb-4 h-72 w-full rounded-lg object-cover"
-                      loading="lazy"
-                    />
-                  )}
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <h2
+            <nav className="space-y-3">
+              {displayEntries.map((entry, index) => {
+                const isActive = index === activeIndex;
+                return (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() =>
+                      cardRefs.current[index]?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center",
+                      })
+                    }
+                    className={
+                      "w-full rounded-2xl border px-5 py-4 text-left transition-all duration-700 " +
+                      (isActive
+                        ? "border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-black"
+                        : "border-transparent bg-gray-50 hover:bg-gray-100 dark:bg-black/30 dark:hover:bg-black/50")
+                    }
+                    style={t ? {
+                      backgroundColor: isActive ? t.cardBg : t.shimmer,
+                      borderColor: isActive ? t.cardBorder : 'transparent',
+                    } : undefined}
+                  >
+                    {/* Header row */}
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={
+                            "flex h-9 w-9 items-center justify-center rounded-xl transition-colors duration-700 " +
+                            (isActive
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-muted text-muted-foreground")
+                          }
+                          style={t ? {
+                            backgroundColor: isActive ? t.accent : t.shimmer,
+                            color: isActive ? t.buttonText : t.textMuted,
+                          } : undefined}
+                        >
+                          <entry.icon className="h-4 w-4" />
+                        </div>
+                        <div>
+                          <span className="block text-sm font-semibold leading-tight transition-colors duration-700" style={{ color: t ? t.text : undefined }}>
+                            {entry.title}
+                          </span>
+                          <span className="block text-xs text-muted-foreground transition-colors duration-700" style={{ color: t ? t.textMuted : undefined }}>
+                            {entry.subtitle}
+                          </span>
+                        </div>
+                      </div>
+                      <ChevronDown
                         className={
-                          "text-md font-medium leading-tight tracking-tight transition-colors duration-200 md:text-lg " +
-                          (isActive ? "text-foreground" : "text-foreground/70")
+                          "h-4 w-4 shrink-0 text-muted-foreground/60 transition-all duration-700 " +
+                          (isActive ? "rotate-180" : "rotate-0")
                         }
-                      >
-                        {entry.title}
-                      </h2>
-                      <p
-                        className={
-                          "text-xs leading-relaxed transition-all duration-300 md:text-sm " +
-                          (isActive
-                            ? "text-muted-foreground line-clamp-none"
-                            : "text-muted-foreground/80 line-clamp-2")
-                        }
-                      >
-                        {entry.description}
-                      </p>
+                        style={{ color: t ? t.textMuted : undefined }}
+                      />
                     </div>
 
+                    {/* Collapsible details */}
                     <div
-                      aria-hidden={!isActive}
                       className={
                         "grid transition-all duration-500 ease-out " +
                         (isActive
@@ -245,31 +269,29 @@ export default function TimeLine_01({
                       }
                     >
                       <div className="overflow-hidden">
-                        <div className="space-y-4 pt-2">
+                        <div className="space-y-3 pt-4 text-sm text-muted-foreground transition-colors duration-700" style={{ color: t ? t.textMuted : undefined }}>
+                          <p className="leading-relaxed">{entry.description}</p>
+
                           {entry.items && entry.items.length > 0 && (
-                            <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-800 dark:bg-black">
-                              <ul className="space-y-2">
-                                {entry.items.map((item, itemIndex) => (
-                                  <li
-                                    key={itemIndex}
-                                    className="flex items-start gap-2 text-sm text-muted-foreground"
-                                  >
-                                    <div className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
-                                    <span className="leading-relaxed">
-                                      {item}
-                                    </span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
+                            <ul className="space-y-1.5 pl-0.5">
+                              {entry.items.map((item, i) => (
+                                <li key={i} className="flex items-start gap-2">
+                                  <div className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/50 transition-colors duration-700" style={{ backgroundColor: t ? t.accent : undefined }} />
+                                  <span className="leading-relaxed">
+                                    {item}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
                           )}
 
                           {entry.button && (
-                            <div className="flex justify-end">
+                            <div className="pt-1">
                               <Button
                                 variant="default"
                                 size="sm"
-                                className="group font-normal transition-all duration-200 hover:bg-primary hover:text-primary-foreground"
+                                className="group font-normal transition-colors duration-700"
+                                style={t ? { backgroundColor: t.accent, color: t.buttonText } : undefined}
                                 asChild
                               >
                                 <a
@@ -286,11 +308,46 @@ export default function TimeLine_01({
                         </div>
                       </div>
                     </div>
+                  </button>
+                );
+              })}
+            </nav>
+          </aside>
+
+          {/* -------- RIGHT: scrolling image cards -------- */}
+          <div className="flex flex-col gap-14 md:gap-20">
+            {displayEntries.map((entry, index) => {
+              const isRevealed = revealed.has(index);
+              return (
+                <div
+                  key={index}
+                  ref={(el) => setCardRef(el, index)}
+                  className={
+                    "rounded-3xl border border-gray-200 bg-white p-4 shadow-sm transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] dark:border-gray-800 dark:bg-black sm:p-5 " +
+                    (isRevealed
+                      ? "translate-y-0 opacity-100"
+                      : "translate-y-8 opacity-0")
+                  }
+                  style={t ? { backgroundColor: t.cardBg, borderColor: t.cardBorder } : undefined}
+                >
+                  {entry.image && (
+                    <img
+                      src={entry.image}
+                      alt={`${entry.title} visual`}
+                      className="h-[320px] w-full rounded-2xl object-cover sm:h-[400px]"
+                      loading="lazy"
+                    />
+                  )}
+                  <div className="mt-4 px-1">
+                    <h3 className="text-base font-semibold transition-colors duration-700" style={{ color: t ? t.text : undefined }}>{entry.title}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground transition-colors duration-700" style={{ color: t ? t.textMuted : undefined }}>
+                      {entry.subtitle}
+                    </p>
                   </div>
-                </article>
-              </div>
-            );
-          })}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
