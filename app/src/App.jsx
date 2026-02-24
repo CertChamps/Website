@@ -1,660 +1,302 @@
-import { useRef, useState, useCallback, useMemo, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import TimeLine_01 from '@/components/ui/release-time-line'
-import ExamPaperCardStack from './components/ExamPaperCardStack'
-import integralIcon from './assets/math-icons/icons8-integral-100 1.png'
-import mathIcon from './assets/math-icons/icons8-math-100 1.png'
-import multiplyIcon from './assets/math-icons/icons8-multiply-96.png'
-import piIcon from './assets/math-icons/icons8-pi-52.png'
-import sigmaIcon from './assets/math-icons/icons8-sigma-52.png'
-import trigIcon from './assets/math-icons/icons8-trigonometry-96-1.png'
-import infinityIcon from './assets/math-icons/icons8-infinity-96-1.png'
-import calculatorIcon from './assets/math-icons/icons8-calculator-96 1.png'
-import lengthIcon from './assets/math-icons/icons8-length-96 1.png'
-import moreOrEqualIcon from './assets/math-icons/icons8-more-or-equal-90 1.png'
-import percentageIcon from './assets/math-icons/icons8-percentage-96-1.png'
-import logo from './assets/logo.png'
-import promo_vid from './assets/promo_vid.mp4'
-
-const CROWN_SVG = (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-gold shrink-0">
-    <path d="M12 2L15 8L22 9L17 14L18 22L12 18L6 22L7 14L2 9L9 8L12 2Z" />
-  </svg>
-)
-
-const SMALL_CROWN = (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-gold inline-block align-middle -ml-0.5">
-    <path d="M12 2L15 8L22 9L17 14L18 22L12 18L6 22L7 14L2 9L9 8L12 2Z" />
-  </svg>
-)
-
-// Sparse particle list. Each spawns off-screen and drifts ~75% toward the center before fading out.
-const PARTICLES = [
-  { src: infinityIcon, size: 110, blur: 4, rotation: 25, start: { x: -0.7, y: -0.6 }, duration: 4, delay: 0.2, repeatDelay: 0.8 },
-  { src: mathIcon, size: 96, blur: 2, rotation: -10, start: { x: 0.0, y: -0.85 }, duration: 3, delay: 1.1, repeatDelay: 0.7 },
-  { src: trigIcon, size: 98, blur: 2, rotation: 18, start: { x: 0.7, y: -0.6 }, duration:   5, delay: 0.6, repeatDelay: 0.9 },
-  { src: percentageIcon, size: 90, blur: 2, rotation: 12, start: { x: -0.85, y: -0.1 }, duration: 2, delay: 1.9, repeatDelay: 0.7 },
-  { src: sigmaIcon, size: 92, blur: 3, rotation: -14, start: { x: -0.7, y: 0.55 }, duration: 4, delay: 2.9, repeatDelay: 0.9 },
-  { src: calculatorIcon, size: 94, blur: 2, rotation: 0, start: { x: 0.85, y: 0.1 }, duration: 2, delay: 2.5, repeatDelay: 0.7 },
-  { src: lengthIcon, size: 92, blur: 3, rotation: -8, start: { x: 0.7, y: 0.75 }, duration: 5, delay: 3.8, repeatDelay: 1.0 },
-  { src: moreOrEqualIcon, size: 100, blur: 3, rotation: -20, start: { x: 0.9, y: -0.2 }, duration: 3, delay: 1.6, repeatDelay: 0.8 },
-  { src: multiplyIcon, size: 104, blur: 2, rotation: 35, start: { x: -0.6, y: 0.9 }, duration: 4, delay: 3.2, repeatDelay: 0.9 },
-  { src: piIcon, size: 88, blur: 2, rotation: 6, start: { x: 0.0, y: 0.95 }, duration: 12, delay: 4.2, repeatDelay: 1.0 },
-  { src: integralIcon, size: 108, blur: 4, rotation: -18, start: { x: 0.6, y: 0.85 }, duration: 16, delay: 4.8, repeatDelay: 1.1 },
-  { src: infinityIcon, size: 96, blur: 3, rotation: -10, start: { x: -0.9, y: 0.2 }, duration: 13, delay: 5.3, repeatDelay: 0.9 },
-]
-
-const GRID_TILE = 64
-
-// ============================================================
-// CUSTOMISE SECTION – App theme presets
-// Edit or add entries here. Each object controls the themed
-// (right) half of the diagonal preview.
-// ============================================================
-const APP_THEMES = [
-  {
-    id: 'dark',
-    name: 'Dark',
-    bg: '#2B3544',
-    cardBg: '#364152',
-    cardBorder: '#445064',
-    text: '#F1F5F9',
-    textMuted: '#94A3B8',
-    accent: '#f9a216',
-    buttonBg: '#f9a216',
-    buttonText: '#1E2530',
-    shimmer: 'rgba(255,255,255,0.07)',
-  },
-  {
-    id: 'ocean',
-    name: 'Ocean',
-    bg: '#0C1929',
-    cardBg: '#132B43',
-    cardBorder: '#1C3D5A',
-    text: '#E0F2FE',
-    textMuted: '#7DD3FC',
-    accent: '#38BDF8',
-    buttonBg: '#0EA5E9',
-    buttonText: '#0C1929',
-    shimmer: 'rgba(255,255,255,0.06)',
-  },
-  {
-    id: 'berry',
-    name: 'Berry',
-    bg: '#1C1028',
-    cardBg: '#291740',
-    cardBorder: '#3B2358',
-    text: '#F5F0FF',
-    textMuted: '#C4B5FD',
-    accent: '#A855F7',
-    buttonBg: '#A855F7',
-    buttonText: '#1C1028',
-    shimmer: 'rgba(255,255,255,0.06)',
-  },
-]
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, useSpring, useMotionValueEvent, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import logo from "./assets/logo.png";
+import full_app from "./assets/full_app.png";
+import ai_snippet from "./assets/ai_snippet_app.png";
+import FeaturesGrid from "./components/FeaturesGrid";
+import HeroCard from "./components/HeroCard";
+import promo from "./assets/videos/promo_vid.mp4";
 
 function App() {
-  const [mouse, setMouse] = useState({ x: 50, y: 50 })
-  const [viewport, setViewport] = useState({ w: typeof window !== 'undefined' ? window.innerWidth : 1920, h: typeof window !== 'undefined' ? window.innerHeight : 1080 })
-  const [scrollY, setScrollY] = useState(0)
-  const [videoProgress, setVideoProgress] = useState(0)
-  const containerRef = useRef(null)
-  const particleLayerRef = useRef(null)
-  const videoSectionRef = useRef(null)
-  const customiseSectionRef = useRef(null)
-  const themeOverlayRef = useRef(null)
-  const whatsNewRef = useRef(null)
-  const sectionDarkRefs = useRef([])
-  const themeActiveRef = useRef(false)
-  const [selectedTheme, setSelectedTheme] = useState(APP_THEMES[0])
-  const [themeActive, setThemeActive] = useState(false)
+  const heroRef = useRef(null);
+  const videoSectionRef = useRef(null);
+  const champRef = useRef(null);
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+  const [emailCopied, setEmailCopied] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('ben.long@certchamps.ie');
+    setEmailCopied(true);
+    setTimeout(() => setEmailCopied(false), 2000);
+  };
+
+  // Track mouse for gradient effect
+  const handleMouseMove = (e) => {
+    if (!champRef.current) return;
+    const rect = champRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setMousePos({ x, y });
+  };
+  
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const parallaxBig = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const parallaxSmall = useTransform(scrollYProgress, [0, 1], [0, 50]);
+
+  // Video section scroll animation
+  const { scrollYProgress: videoScrollProgress } = useScroll({
+    target: videoSectionRef,
+    offset: ["start end", "start center"],
+  });
+
+  const videoScaleRaw = useTransform(videoScrollProgress, [0, 1], [1.05, 1]);
+  const videoScale = useSpring(videoScaleRaw, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  
+  const videoYRaw = useTransform(videoScrollProgress, [0, 1], [30, 0]);
+  const videoY = useSpring(videoYRaw, { stiffness: 100, damping: 30, restDelta: 0.001 });
+
+  // Track if user has scrolled for navbar border
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setHasScrolled(latest > 10);
+  });
+
+  // Close mobile menu on resize to desktop
   useEffect(() => {
-    const onResize = () => setViewport({ w: window.innerWidth, h: window.innerHeight })
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-  }, [])
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-  const particles = useMemo(() => {
-    const vw = viewport.w
-    const vh = viewport.h
-    return PARTICLES.map((particle) => ({
-      ...particle,
-      startX: particle.start.x * vw,
-      startY: particle.start.y * vh,
-      endX: particle.start.x * vw * 0.25,
-      endY: particle.start.y * vh * 0.25,
-    }))
-  }, [viewport.w, viewport.h])
-
-  // Parallax: shift entire particle layer based on scroll of the inner container.
+  // Prevent body scroll when mobile menu is open
   useEffect(() => {
-    const container = containerRef.current
-    const layer = particleLayerRef.current
-    if (!container || !layer) return
-    const onScroll = () => {
-      const sy = container.scrollTop
-      setScrollY(sy)
-      layer.style.top = `${-sy * 0.18}px`
-      const section = videoSectionRef.current
-      if (section) {
-        const vh = window.innerHeight
-        const rect = section.getBoundingClientRect()
-        const progress = Math.min(1, Math.max(0, (vh - rect.top) / rect.height))
-        setVideoProgress(progress)
-      }
-      // Scroll-driven diagonal sweep
-      const customise = customiseSectionRef.current
-      if (customise) {
-        const cRect = customise.getBoundingClientRect()
-        const vh = window.innerHeight
-        // Fast sweep — completes within 40% of one viewport-height of scroll
-        const p = Math.min(1, Math.max(0, (vh - cRect.top) / (vh * 0.4)))
-        // Steep diagonal — ~22% horizontal gap at mid-sweep
-        const topX = 120 - 155 * p
-        const bottomX = 165 - 200 * p
-
-        // Fixed overlay (background + navbar) — viewport-relative clip
-        const vClip = `polygon(${topX}% 0%, 100% 0%, 100% 100%, ${bottomX}% 100%)`
-        if (themeOverlayRef.current) themeOverlayRef.current.style.clipPath = vClip
-
-        // Per-section dark content overlays — section-relative clip
-        const sectionEls = [whatsNewRef.current, customise]
-        sectionEls.forEach((sec, i) => {
-          const dark = sectionDarkRefs.current[i]
-          if (!sec || !dark) return
-          const r = sec.getBoundingClientRect()
-          const sT = (-r.top / r.height) * 100
-          const sB = ((vh - r.top) / r.height) * 100
-          dark.style.clipPath = `polygon(${topX}% ${sT}%, 100% ${sT}%, 100% ${sB}%, ${bottomX}% ${sB}%)`
-        })
-
-        // Flip global theme once sweep covers the screen
-        const shouldBeActive = p > 0.85
-        if (shouldBeActive !== themeActiveRef.current) {
-          themeActiveRef.current = shouldBeActive
-          setThemeActive(shouldBeActive)
-        }
-      }
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
     }
-    onScroll()
-    container.addEventListener('scroll', onScroll, { passive: true })
-    return () => container.removeEventListener('scroll', onScroll)
-  }, [])
-
-  const onMouseMove = useCallback((e) => {
-    const rect = containerRef.current?.getBoundingClientRect()
-    if (!rect) return
-    const x = ((e.clientX - rect.left) / rect.width) * 100
-    const y = ((e.clientY - rect.top) / rect.height) * 100
-    setMouse({ x, y })
-  }, [])
-
-  const champGradient = useMemo(() => {
-    return `radial-gradient(circle at ${mouse.x}% ${mouse.y}%, #FFDA9F 0%, #FFAE2B 100%)`
-  }, [mouse.x, mouse.y])
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   return (
-    <div
-      ref={containerRef}
-      onMouseMove={onMouseMove}
-      className="h-screen overflow-y-auto overflow-x-hidden relative transition-colors duration-700"
-      style={{ backgroundColor: themeActive ? selectedTheme.bg : '#ffffff' }}
-    >
+    <div className="relative overflow-x-hidden w-full">
+      {/* Navbar */}
+      <nav className={`bg-white/95 backdrop-blur-sm py-4 px-4 md:px-8 w-full flex items-center justify-between fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${hasScrolled ? "border-b border-grey/20" : "border-b border-transparent"}`}>
+        <a href="/" className="flex items-center gap-2 z-50">
+          <img src={logo} alt="logo" className="w-8 h-8 object-contain"/>
+          <h1 className="font-bold text-black">Cert<span className="text-gold">Champs</span></h1>
+        </a>
 
-              {/* Nav – fixed to top of viewport for entire scroll */}
-        <motion.nav
-          className="flex items-center justify-between px-6 md:px-12 py-2.5 shrink-0 fixed top-0 left-0 right-0 z-50 transition-colors duration-700"
-          style={{ backgroundColor: themeActive ? selectedTheme.bg : '#ffffff' }}
-          initial={{ filter: 'blur(12px)', opacity: 0 }}
-          animate={{ filter: 'blur(0px)', opacity: 1 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center flex-1 justify-center gap-6">
+          <a href="/" className="text-dark-grey hover:text-blue transition-colors">about</a>
+          <a href="/" className="text-dark-grey hover:text-blue transition-colors">pricing</a>
+          <a href="/" className="text-dark-grey hover:text-blue transition-colors">contact</a>
+        </div>
+
+        <div className="hidden md:flex items-center gap-2">
+          <a href="https://app.certchamps.ie" className="bg-blue/10 text-blue px-5 py-2 rounded-md font-bold hover:bg-blue/20 transition-colors">login</a>
+        </div>
+
+        {/* Mobile Hamburger Button */}
+        <button 
+          className="md:hidden z-50 p-2 -mr-2"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
         >
-          <a href="/" className="flex items-center gap-2 flex-1 min-w-0">
-            <img src={logo} alt="logo" className="w-10 h-10 object-contain transition-all duration-700" style={{ filter: themeActive ? 'brightness(10)' : 'none' }} />
-            <span className="text-xl font-bold">
-              <span className="transition-colors duration-700" style={{ color: themeActive ? selectedTheme.text : '#000' }}>Cert</span>
-              <span className="transition-colors duration-700" style={{ color: themeActive ? selectedTheme.accent : '#f9a216' }}>Champs</span>
-            </span>
-          </a>
-          <div className="flex items-center justify-center gap-8 flex-1 min-w-0">
-            <a href="#about" className="text-sm md:text-base transition-colors duration-700" style={{ color: themeActive ? selectedTheme.textMuted : '#000' }}>about us</a>
-            <a href="#pricing" className="text-sm md:text-base transition-colors duration-700" style={{ color: themeActive ? selectedTheme.textMuted : '#000' }}>pricing</a>
-            <a href="#contact" className="text-sm md:text-base transition-colors duration-700" style={{ color: themeActive ? selectedTheme.textMuted : '#000' }}>contact</a>
-          </div>
-          <div className="flex justify-end flex-1 min-w-0">
-            <button
-              type="button"
-              className="rounded-lg px-5 py-2.5 font-semibold text-sm md:text-base transition-all duration-700 hover:opacity-90"
-              style={{
-                backgroundColor: themeActive ? `${selectedTheme.accent}1A` : 'rgba(24, 81, 150, 0.1)',
-                color: themeActive ? selectedTheme.accent : undefined,
-              }}
-            >
-              Log In
-            </button>
-          </div>
-        </motion.nav>
-      {/* 3D perspective grid – train tracks style, vanishing point in center, hole for hero */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center"
-        style={{ perspective: '1200px' }}
-      >
-        <div
-          className="absolute transition-opacity duration-700"
-          style={{
-            opacity: themeActive ? 0.08 : 0.35,
-            width: '280vmin',
-            height: '280vmin',
-            left: '50%',
-            top: '50%',
-            marginLeft: '-140vmin',
-            marginTop: '-140vmin',
-            transformStyle: 'preserve-3d',
-            transform: 'rotateX(58deg) rotateZ(0deg)',
-            backgroundImage: `
-              linear-gradient(to right, #d4d4d4 1px, transparent 1px),
-              linear-gradient(to bottom, #d4d4d4 1px, transparent 1px)
-            `,
-            backgroundSize: `${GRID_TILE}px ${GRID_TILE}px`,
-            WebkitMaskImage: 'radial-gradient(ellipse 45% 40% at 50% 50%, transparent 0%, transparent 30%, black 45%)',
-            maskImage: 'radial-gradient(ellipse 45% 40% at 50% 50%, transparent 0%, transparent 30%, black 45%)',
-          }}
-        />
-      </div>
+          {mobileMenuOpen ? <X className="w-6 h-6 text-black" /> : <Menu className="w-6 h-6 text-black" />}
+        </button>
 
-      {/* Particle icons – spawn off-screen, drift to center, fade out. */}
-      <div ref={particleLayerRef} className="fixed inset-0 z-10 pointer-events-none overflow-hidden transition-opacity duration-700" style={{ opacity: themeActive ? 0.15 : 1 }}>
-        {particles.map((particle, i) => {
-          const rotation = particle.rotation ?? 0
-          return (
-            <div
-              key={i}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-              style={{ width: particle.size, height: particle.size }}
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 top-0 left-0 right-0 bottom-0 bg-white z-40 md:hidden"
             >
-              <motion.div
-                className="w-full h-full will-change-transform"
+              <div className="flex flex-col items-center justify-center h-full gap-8 pt-16">
+                <a href="/" onClick={() => setMobileMenuOpen(false)} className="text-2xl text-dark-grey hover:text-blue transition-colors">about</a>
+                <a href="/" onClick={() => setMobileMenuOpen(false)} className="text-2xl text-dark-grey hover:text-blue transition-colors">pricing</a>
+                <a href="/" onClick={() => setMobileMenuOpen(false)} className="text-2xl text-dark-grey hover:text-blue transition-colors">contact</a>
+                <a href="https://app.certchamps.ie" className="bg-blue text-white px-8 py-3 rounded-md font-bold text-xl mt-4">login</a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+
+      {/* Hero Section */}
+      <section ref={heroRef} className="relative z-10 min-h-screen w-full bg-transparent pt-24 md:pt-28 pb-8" onMouseMove={handleMouseMove}>
+        <div className="flex flex-col items-center justify-start w-full relative px-4 md:px-8">
+          {/* Hero Text */}
+          <div className="flex flex-col items-center w-full z-10 py-4 md:py-5">
+            <motion.h1
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight -tracking-[0.1rem] md:-tracking-[0.15rem] mb-4 text-black w-full text-center"
+              initial={{ opacity: 0, filter: "blur(12px)" }}
+              animate={{ opacity: 1, filter: "blur(0px)" }}
+              transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
+            >
+              Practice like a{" "}
+              <span 
+                ref={champRef}
+                className="font-bold relative inline-block bg-clip-text text-transparent"
                 style={{
-                  transformStyle: 'preserve-3d',
-                  backfaceVisibility: 'hidden',
-                  filter: `blur(${particle.blur ?? 0}px)`,
-                }}
-                initial={{
-                  x: particle.startX,
-                  y: particle.startY,
-                  scale: 0.85,
-                  opacity: 0,
-                  rotateZ: rotation,
-                }}
-                animate={{
-                  x: particle.endX,
-                  y: particle.endY,
-                  scale: [0.85, 1, 0.95],
-                  opacity: [0, 1, 0],
-                  rotateZ: rotation,
-                }}
-                transition={{
-                  duration: particle.duration,
-                  delay: particle.delay,
-                  ease: [0.25, 0.1, 0.25, 1],
-                  times: [0, 0.6, 1],
-                  repeat: Infinity,
-                  repeatDelay: particle.repeatDelay,
+                  backgroundImage: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, #FFD700, #FFBD53, #FFA500)`,
                 }}
               >
-                <img
-                  src={particle.src}
-                  alt=""
-                  className="w-full h-full object-contain"
-                  draggable={false}
-                />
-              </motion.div>
-            </div>
-          )
-        })}
-      </div>
-
-      {/* Hero – exactly one viewport height so it fills the first screen */}
-      <div className="relative z-10 flex flex-col h-screen">
-{/* 
-        <div className="absolute top-0 left-0 w-full h-full z-0 bg-radial from-white/0 via-white/70 to-white">  
-        </div> */}
-
-
-        {/* Hero content – flex-1 fills remaining space */}
-        <main className="flex-1 flex flex-col items-center justify-center px-6 py-16 text-center min-h-0">
-          <motion.h1
-            className="text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight max-w-4xl"
-            initial={{ filter: 'blur(14px)', opacity: 0 }}
-            animate={{ filter: 'blur(0px)', opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
-          >
-            <span className="text-black block">Practice Maths</span>
-            <span className="relative inline-block -mt-2">
-              <span
-                className="bg-clip-text text-transparent select-none sm:text-6xl md:text-7xl lg:text-8xl"
-                style={{ backgroundImage: champGradient, backgroundClip: 'text', WebkitBackgroundClip: 'text' }}
-              >
-                Like a Champ
+                Champ
               </span>
-              <svg
-                viewBox="0 0 220 30"
-                className="absolute -bottom-[0.2em] right-0 w-[55%] h-[0.5em] text-black/50 pointer-events-none"
-                style={{ transform: 'translateY(10%) scaleY(-0.5)' }}
-              >
-                <motion.path
-                  d="M 10 10 Q 110 25 210 10 Q 160 30 20 20 Q 120 35 200 25"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ delay: 1.0, duration: 0.5, ease: "easeInOut" }}
-                />
-              </svg>
-            </span>
-          </motion.h1>
-          <motion.p
-            className="text-black/80 mt-4 max-w-xl text-base md:text-lg leading-relaxed"
-            initial={{ filter: 'blur(10px)', opacity: 0 }}
-            animate={{ filter: 'blur(0px)', opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
-          >
-            Join thousands of Leaving Cert students in the new maths experience designed to make your life as easy as possible.
-          </motion.p>
-          <motion.div
-            initial={{ filter: 'blur(10px)', opacity: 0 }}
-            animate={{ filter: 'blur(0px)', opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.55, ease: 'easeOut' }}
-          >
-            <button
-              type="button"
-              className="mt-8 rounded-lg px-10 py-2 text-blue font-semibold text-base transition-opacity hover:opacity-75 cursor-pointer"
-              style={{ backgroundColor: 'rgba(24, 81, 150, 0.1)' }}
+            </motion.h1>
+            <motion.h2
+              className="text-base sm:text-lg md:text-xl text-dark-grey w-full sm:w-2/3 md:w-1/2 lg:w-1/3 mx-auto text-center px-4"
+              initial={{ opacity: 0, filter: "blur(10px)" }}
+              animate={{ opacity: 1, filter: "blur(0px)" }}
+              transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 0.61, 0.36, 1] }}
+            >
+              The all in one Leaving Cert platform that helps you practice questions, exactly how you want.
+            </motion.h2>
+          </div>
+
+          {/* Hero Images - Desktop only with parallax */}
+          <div className="hidden md:block relative w-full h-[50vh] lg:h-[55vh]">
+            <motion.img
+              src={full_app}
+              alt="full_app"
+              className="h-full max-h-[500px] object-contain absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-[55%] z-10"
+              style={{ y: parallaxBig }}
+              initial={{ opacity: 0, x: 36 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
+            />
+            <motion.img
+              src={ai_snippet}
+              alt="ai_snippet"
+              className="h-full max-h-[520px] object-contain absolute top-1/2 -translate-y-[45%] left-1/2 translate-x-[15%] z-10"
+              style={{ y: parallaxSmall }}
+              initial={{ opacity: 0, x: 28 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
+            />
+          </div>
+
+          {/* Hero Images - Mobile/Tablet - single image */}
+          <div className="md:hidden w-full flex flex-col items-center py-8">
+            <motion.img
+              src={full_app}
+              alt="full_app"
+              className="w-[85%] max-w-[400px] object-contain"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
+            />
+          </div>
+
+          {/* CTA Button */}
+          <div className="w-full flex justify-center items-center py-6 md:py-8">
+            <motion.a
+              href="https://app.certchamps.ie"
+              className="bg-blue/10 text-blue px-6 py-3 rounded-md font-bold text-lg md:text-xl cursor-pointer hover:bg-blue/20 transition-colors"
+              initial={{ opacity: 0, filter: "blur(10px)" }}
+              animate={{ opacity: 1, filter: "blur(0px)" }}
+              transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 0.61, 0.36, 1] }}
             >
               Get Started
-            </button>
-          </motion.div>
-        </main>
-      </div>
+            </motion.a>
+          </div>
+        </div>
+      </section>
 
-      {/* Video section – "See..." + video zoom together */}
-      <section
-        ref={videoSectionRef}
-        id="video"
-        className="relative z-11 mt-12 transition-colors duration-700"
-        style={{ height: '200vh', backgroundColor: themeActive ? selectedTheme.bg : '#ffffff' }}
-      >
-        {/* top = navbar height + space so content stays visible below the fixed nav */}
-        <div
-          className="sticky w-full flex items-center justify-center  px-4"
-          style={{ top: 'calc(15vh)', height: 'calc(78vh - 4rem)' }}
+      <FeaturesGrid />
+      <HeroCard />
+
+      {/* Video Section */}
+      <section ref={videoSectionRef} className="w-full max-w-[1200px] mx-auto px-4 md:px-8 py-12 md:py-20">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center text-dark-grey mb-6 md:mb-8">see certchamps in action</h2>
+        <motion.div 
+          className="w-full p-2 md:p-4 rounded-xl bg-grey/20 overflow-hidden origin-center"
+          style={{ scale: videoScale, y: videoY }}
         >
-          {(() => {
-            const easeProgress = 1 - (1 - videoProgress) ** 1.5
-            const scale = 2.4 - 1.4 * easeProgress
-            const translateY = (1 - easeProgress) * 22
-            return (
-              <div
-                className="absolute flex flex-col items-center justify-center will-change-transform"
-                style={{
-                  transform: `scale(${scale}) translateY(${translateY}%)`,
-                  transformOrigin: 'center center',
-                }}
-              >
-                <h2 className="text-center text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight shrink-0 pb-4 md:pb-6 transition-colors duration-700" style={{ color: themeActive ? selectedTheme.text : '#000' }}>
-                  See what CertChamps is all about
-                </h2>
-                <div
-                  className="w-[90vw] max-w-5xl rounded-2xl overflow-hidden border-12 border-[#626c790c] shadow-2xl shadow-black/5"
-                  style={{ aspectRatio: '16/9' }}
-                >
-                  <video src={promo_vid} autoPlay muted loop playsInline className="w-full h-full object-cover" />
-                </div>
-              </div>
-            )
-          })()}
-        </div>
+          <video 
+            src={promo} 
+            controls 
+            loop 
+            className="w-full rounded-lg md:rounded-xl"
+            style={{ aspectRatio: '16/9' }}
+          />
+        </motion.div>
       </section>
 
-
-      {/* What's new – release timeline */}
-      <section ref={whatsNewRef} id="whats-new" className="relative z-10 transition-colors duration-700" style={{ backgroundColor: themeActive ? selectedTheme.bg : '#ffffff' }}>
-        <TimeLine_01 themeActive={themeActive} theme={selectedTheme} />
-
-        {/* Dark overlay — clip-path reveals themed content behind the diagonal */}
-        <div
-          ref={el => { sectionDarkRefs.current[0] = el; if (el && !el.style.clipPath) el.style.clipPath = 'polygon(120% 0%, 100% 0%, 100% 100%, 165% 100%)' }}
-          className="absolute inset-0 z-30 pointer-events-none overflow-hidden"
-          style={{ backgroundColor: selectedTheme.bg }}
-        >
-          <TimeLine_01 themeActive={true} theme={selectedTheme} />
-        </div>
-      </section>
-
-      {/* ===== Customise CertChamps ===== */}
-      <section
-        ref={customiseSectionRef}
-        id="customise"
-        className="relative z-10 transition-colors duration-700"
-        style={{ backgroundColor: themeActive ? selectedTheme.bg : '#ffffff' }}
-      >
-        <div className="relative flex flex-col items-center justify-center min-h-screen px-6 py-24">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-center max-w-3xl tracking-tight transition-colors duration-700" style={{ color: themeActive ? selectedTheme.text : '#000' }}>
-            Customise{' '}
-            <span className="transition-colors duration-700" style={{ color: themeActive ? selectedTheme.accent : '#f9a216' }}>CertChamps</span>
-            {' '}how you like
-          </h2>
-          <p className="mt-4 max-w-md text-center text-base md:text-lg transition-colors duration-700" style={{ color: themeActive ? selectedTheme.textMuted : 'rgba(0,0,0,0.55)' }}>
-            Pick a theme that suits your style. Study your way with a look that feels right.
-          </p>
-
-          {/* App preview card */}
-          <div
-            className="mt-10 md:mt-14 w-[300px] sm:w-[360px] rounded-2xl overflow-hidden transition-all duration-700"
-            style={{
-              backgroundColor: themeActive ? selectedTheme.cardBg : '#ffffff',
-              border: `1px solid ${themeActive ? selectedTheme.cardBorder : '#e4e4e7'}`,
-              boxShadow: themeActive ? '0 25px 50px -12px rgba(0,0,0,0.25)' : '0 20px 25px -5px rgba(0,0,0,0.06)',
-            }}
-          >
-            <div className="px-4 py-3 flex items-center transition-colors duration-700" style={{ borderBottom: `1px solid ${themeActive ? selectedTheme.cardBorder : '#e4e4e7'}` }}>
-              <svg viewBox="0 0 24 24" className="w-4 h-4 mr-1.5">
-                <path d="M12 2L15 8L22 9L17 14L18 22L12 18L6 22L7 14L2 9L9 8L12 2Z" fill={themeActive ? selectedTheme.accent : '#f9a216'} />
-              </svg>
-              <span className="text-xs font-bold tracking-tight transition-colors duration-700" style={{ color: themeActive ? selectedTheme.text : '#000' }}>
-                Cert<span className="transition-colors duration-700" style={{ color: themeActive ? selectedTheme.accent : '#f9a216' }}>Champs</span>
-              </span>
-              <span className="ml-auto text-[10px] transition-colors duration-700" style={{ color: themeActive ? selectedTheme.textMuted : 'rgba(0,0,0,0.4)' }}>Practice</span>
+      {/* Footer */}
+      <footer className="w-full bg-light-grey border-t border-grey/20 mt-12 md:mt-20">
+        <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-10 md:py-16">
+          {/* Footer Grid - responsive */}
+          <div className="flex flex-col md:flex-row md:justify-between gap-10 md:gap-12">
+            {/* Logo & CTA */}
+            <div className="flex flex-col items-center md:items-start">
+              <a href="/" className="flex items-center gap-2 mb-4">
+                <img src={logo} alt="logo" className="w-10 h-10 object-contain"/>
+                <h1 className="font-bold text-black text-xl">Cert<span className="text-gold">Champs</span></h1>
+              </a>
+              <a href="https://app.certchamps.ie" className="bg-blue text-white px-5 py-2 rounded-md font-bold text-sm inline-block hover:bg-blue/90 transition-colors">
+                Get Started
+              </a>
             </div>
-            <div className="p-5 space-y-2.5">
-              <div className="h-2.5 rounded-full transition-colors duration-700" style={{ backgroundColor: themeActive ? selectedTheme.shimmer : '#f0f0f2', width: '55%' }} />
-              <div className="h-2.5 rounded-full transition-colors duration-700" style={{ backgroundColor: themeActive ? selectedTheme.shimmer : '#f0f0f2', width: '80%' }} />
-              <div className="h-2.5 rounded-full transition-colors duration-700" style={{ backgroundColor: themeActive ? selectedTheme.shimmer : '#f0f0f2', width: '40%' }} />
-              <div className="pt-3 space-y-2">
-                <div className="h-9 rounded-lg transition-colors duration-700" style={{ backgroundColor: themeActive ? selectedTheme.shimmer : '#f0f0f2' }} />
-                <div className="h-9 rounded-lg transition-all duration-700" style={{ backgroundColor: themeActive ? selectedTheme.shimmer : '#f0f0f2', border: `1.5px solid ${themeActive ? selectedTheme.accent : '#f9a216'}` }} />
+
+            {/* Pages & Connect - side by side on mobile */}
+            <div className="flex flex-row justify-center gap-16 md:gap-20">
+              {/* Pages */}
+              <div>
+                <h4 className="font-semibold text-black mb-4">Pages</h4>
+                <ul className="space-y-2">
+                  <li><a href="/" className="text-dark-grey hover:text-blue transition-colors text-sm">Home</a></li>
+                  <li><a href="/" className="text-dark-grey hover:text-blue transition-colors text-sm">About</a></li>
+                  <li><a href="/" className="text-dark-grey hover:text-blue transition-colors text-sm">Pricing</a></li>
+                  <li><a href="/" className="text-dark-grey hover:text-blue transition-colors text-sm">Contact</a></li>
+                </ul>
               </div>
-              <div className="pt-2">
-                <div className="h-10 w-full rounded-lg flex items-center justify-center transition-colors duration-700" style={{ backgroundColor: themeActive ? selectedTheme.buttonBg : 'rgba(24,81,150,0.1)' }}>
-                  <span className="text-xs font-bold transition-colors duration-700" style={{ color: themeActive ? selectedTheme.buttonText : '#185196' }}>Continue</span>
-                </div>
+
+              {/* Socials */}
+              <div>
+                <h4 className="font-semibold text-black mb-4">Connect</h4>
+                <ul className="space-y-2">
+                  <li>
+                    <a href="https://www.instagram.com/certchamps/" target="_blank" rel="noopener noreferrer" className="text-dark-grey hover:text-blue transition-colors text-sm">
+                      Instagram
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.tiktok.com/@certchamps" target="_blank" rel="noopener noreferrer" className="text-dark-grey hover:text-blue transition-colors text-sm">
+                      TikTok
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.linkedin.com/company/107425792/admin/dashboard/" target="_blank" rel="noopener noreferrer" className="text-dark-grey hover:text-blue transition-colors text-sm">
+                      LinkedIn
+                    </a>
+                  </li>
+                  <li>
+                    <button onClick={handleCopyEmail} className="text-dark-grey hover:text-blue transition-colors text-sm">
+                      {emailCopied ? 'Email Copied!' : 'Email'}
+                    </button>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
 
-          {/* Theme selector */}
-          <div className="mt-8 flex gap-3">
-            {APP_THEMES.map((theme) => (
-              <button
-                key={theme.id}
-                type="button"
-                onClick={() => setSelectedTheme(theme)}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer"
-                style={themeActive ? {
-                  backgroundColor: selectedTheme.id === theme.id ? selectedTheme.accent : 'rgba(255,255,255,0.08)',
-                  color: selectedTheme.id === theme.id ? selectedTheme.buttonText : selectedTheme.textMuted,
-                  border: `1.5px solid ${selectedTheme.id === theme.id ? selectedTheme.accent : 'rgba(255,255,255,0.1)'}`,
-                } : {
-                  backgroundColor: selectedTheme.id === theme.id ? '#185196' : '#f4f4f5',
-                  color: selectedTheme.id === theme.id ? '#fff' : '#71717a',
-                  border: `1.5px solid ${selectedTheme.id === theme.id ? '#185196' : '#e4e4e7'}`,
-                }}
-              >
-                <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: theme.accent }} />
-                {theme.name}
-              </button>
-            ))}
+          {/* Bottom bar */}
+          <div className="border-t border-grey/20 mt-10 md:mt-12 pt-6 md:pt-8 flex justify-center md:justify-between items-center">
+            <p className="text-dark-grey text-xs md:text-sm text-center">© {new Date().getFullYear()} CertChamps. All rights reserved.</p>
           </div>
         </div>
-
-        {/* Dark overlay — clip-path reveals themed content behind the diagonal */}
-        <div
-          ref={el => { sectionDarkRefs.current[1] = el; if (el && !el.style.clipPath) el.style.clipPath = 'polygon(120% 0%, 100% 0%, 100% 100%, 165% 100%)' }}
-          className="absolute inset-0 z-30 pointer-events-none overflow-hidden"
-          style={{ backgroundColor: selectedTheme.bg }}
-        >
-          <div className="flex flex-col items-center justify-center min-h-screen px-6 py-24">
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-center max-w-3xl tracking-tight" style={{ color: selectedTheme.text }}>
-              Customise{' '}
-              <span style={{ color: selectedTheme.accent }}>CertChamps</span>
-              {' '}how you like
-            </h2>
-            <p className="mt-4 max-w-md text-center text-base md:text-lg" style={{ color: selectedTheme.textMuted }}>
-              Pick a theme that suits your style. Study your way with a look that feels right.
-            </p>
-
-            {/* App preview card – dark */}
-            <div
-              className="mt-10 md:mt-14 w-[300px] sm:w-[360px] rounded-2xl overflow-hidden"
-              style={{ backgroundColor: selectedTheme.cardBg, border: `1px solid ${selectedTheme.cardBorder}`, boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)' }}
-            >
-              <div className="px-4 py-3 flex items-center" style={{ borderBottom: `1px solid ${selectedTheme.cardBorder}` }}>
-                <svg viewBox="0 0 24 24" className="w-4 h-4 mr-1.5">
-                  <path d="M12 2L15 8L22 9L17 14L18 22L12 18L6 22L7 14L2 9L9 8L12 2Z" fill={selectedTheme.accent} />
-                </svg>
-                <span className="text-xs font-bold tracking-tight" style={{ color: selectedTheme.text }}>
-                  Cert<span style={{ color: selectedTheme.accent }}>Champs</span>
-                </span>
-                <span className="ml-auto text-[10px]" style={{ color: selectedTheme.textMuted }}>Practice</span>
-              </div>
-              <div className="p-5 space-y-2.5">
-                <div className="h-2.5 rounded-full" style={{ backgroundColor: selectedTheme.shimmer, width: '55%' }} />
-                <div className="h-2.5 rounded-full" style={{ backgroundColor: selectedTheme.shimmer, width: '80%' }} />
-                <div className="h-2.5 rounded-full" style={{ backgroundColor: selectedTheme.shimmer, width: '40%' }} />
-                <div className="pt-3 space-y-2">
-                  <div className="h-9 rounded-lg" style={{ backgroundColor: selectedTheme.shimmer }} />
-                  <div className="h-9 rounded-lg" style={{ backgroundColor: selectedTheme.shimmer, border: `1.5px solid ${selectedTheme.accent}` }} />
-                </div>
-                <div className="pt-2">
-                  <div className="h-10 w-full rounded-lg flex items-center justify-center" style={{ backgroundColor: selectedTheme.buttonBg }}>
-                    <span className="text-xs font-bold" style={{ color: selectedTheme.buttonText }}>Continue</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Theme selector – dark (visual only) */}
-            <div className="mt-8 flex gap-3">
-              {APP_THEMES.map((theme) => (
-                <div
-                  key={theme.id}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold"
-                  style={{
-                    backgroundColor: selectedTheme.id === theme.id ? selectedTheme.accent : 'rgba(255,255,255,0.08)',
-                    color: selectedTheme.id === theme.id ? selectedTheme.buttonText : selectedTheme.textMuted,
-                    border: `1.5px solid ${selectedTheme.id === theme.id ? selectedTheme.accent : 'rgba(255,255,255,0.1)'}`,
-                  }}
-                >
-                  <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: theme.accent }} />
-                  {theme.name}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      
-
-      {/* Exam papers – card stack with scan hover and gradient border */}
-      <section id="exam-papers" className="relative z-10 py-24 px-6 md:py-32 transition-colors duration-700" style={{ backgroundColor: themeActive ? selectedTheme.bg : '#ffffff' }}>
-        <div className="mx-auto max-w-4xl">
-          <motion.h2
-            className="mb-2 text-center text-3xl font-bold tracking-tight md:text-4xl transition-colors duration-700"
-            style={{ color: themeActive ? selectedTheme.text : '#000' }}
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.4 }}
-          >
-            Exam papers
-          </motion.h2>
-          <motion.p
-            className="mx-auto mb-12 max-w-xl text-center transition-colors duration-700"
-            style={{ color: themeActive ? selectedTheme.textMuted : 'rgba(0,0,0,0.7)' }}
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.4, delay: 0.05 }}
-          >
-            Hover over the stack and move up and down to scan through papers.
-          </motion.p>
-          <motion.div
-            className="flex justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <ExamPaperCardStack
-              cards={[
-                { id: 'p2-2025', title: '2025 Paper 2', subtitle: 'CertChamps', description: 'All questions in the 2025 state exam paper 2.', questionCount: 24 },
-                { id: 'p1-2024', title: '2024 Paper 1', subtitle: 'CertChamps', description: 'All questions from the 2024 state exam paper 1.', questionCount: 18 },
-                { id: 'p2-2024', title: '2024 Paper 2', subtitle: 'CertChamps', description: 'All questions from the 2024 state exam paper 2.', questionCount: 22 },
-              ]}
-            />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ===== FIXED DARK OVERLAY — dark navbar only, scroll-driven clip-path ===== */}
-      {/* No solid dark background — section dark overlays provide themed bg + content */}
-      <div
-        ref={el => { themeOverlayRef.current = el; if (el && !el.style.clipPath) el.style.clipPath = 'polygon(120% 0%, 100% 0%, 100% 100%, 165% 100%)' }}
-        className="fixed inset-0 pointer-events-none"
-        style={{ zIndex: 55 }}
-      >
-        {/* Dark navbar (visual mirror — non-interactive) */}
-        <nav className="flex items-center justify-between px-6 md:px-12 py-2.5" style={{ backgroundColor: selectedTheme.bg }}>
-          <span className="flex items-center gap-2 flex-1 min-w-0">
-            <img src={logo} alt="" className="w-10 h-10 object-contain" style={{ filter: 'brightness(10)' }} />
-            <span className="text-xl font-bold">
-              <span style={{ color: selectedTheme.text }}>Cert</span>
-              <span style={{ color: selectedTheme.accent }}>Champs</span>
-            </span>
-          </span>
-          <div className="flex items-center justify-center gap-8 flex-1 min-w-0">
-            <span className="text-sm md:text-base" style={{ color: selectedTheme.textMuted }}>about us</span>
-            <span className="text-sm md:text-base" style={{ color: selectedTheme.textMuted }}>pricing</span>
-            <span className="text-sm md:text-base" style={{ color: selectedTheme.textMuted }}>contact</span>
-          </div>
-          <div className="flex justify-end flex-1 min-w-0">
-            <span
-              className="rounded-lg px-5 py-2.5 font-semibold text-sm md:text-base"
-              style={{ backgroundColor: `${selectedTheme.accent}1A`, color: selectedTheme.accent }}
-            >
-              Log In
-            </span>
-          </div>
-        </nav>
-      </div>
-
+      </footer>
     </div>
   )
 }
 
-export default App
+export default App;
