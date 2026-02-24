@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import logo from "./assets/logo.png";
 import full_app from "./assets/full_app.png";
 import ai_snippet from "./assets/ai_snippet_app.png";
+import StudyIconsParallax from "./components/StudyIconsParallax";
 import FeaturesGrid from "./components/FeaturesGrid";
 import HeroCard from "./components/HeroCard";
 import promo from "./assets/videos/promo_vid.mp4";
@@ -82,6 +83,11 @@ function App() {
 
   return (
     <div className="relative overflow-x-hidden w-full">
+      {/* Floating icons - desktop only */}
+      <div className="hidden lg:block">
+        <StudyIconsParallax />
+      </div>
+
       {/* Navbar */}
       <nav className={`bg-white/95 backdrop-blur-sm py-4 px-4 md:px-8 w-full flex items-center justify-between fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${hasScrolled ? "border-b border-grey/20" : "border-b border-transparent"}`}>
         <a href="/" className="flex items-center gap-2 z-50">
