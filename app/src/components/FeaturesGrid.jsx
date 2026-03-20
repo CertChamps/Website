@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import filter_demo from "../assets/videos/Filter_Demo.mp4";
+import filter_demo from "../assets/videos/Filter_demo.mp4";
 import ai_demo from "../assets/videos/AI_demo.mp4";
 import log_demo from "../assets/videos/log_demo.mp4";
 import timer_demo from "../assets/videos/Timer_Demo.mp4";
