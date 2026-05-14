@@ -56,7 +56,7 @@ const HEADING_TEXT = "Every tool you need in one place.";
 const TYPE_MS_PER_CHAR = 25;
 
 // Card component for mobile (flex layout)
-function MobileCard({ card, index, typingDone }) {
+function MobileCard({ card, index, revealGrid }) {
   const videoRef = useRef(null);
 
   const handleMouseEnter = () => {
@@ -70,7 +70,7 @@ function MobileCard({ card, index, typingDone }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
-      animate={typingDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      animate={revealGrid ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{
         duration: 0.5,
         delay: index * 0.1,
@@ -109,7 +109,7 @@ function MobileCard({ card, index, typingDone }) {
 }
 
 // Card component for desktop (grid layout with hover effects)
-function DesktopCard({ card, index, gridCol, gridRow, typingDone, mousePos, gridRect }) {
+function DesktopCard({ card, index, gridCol, gridRow, revealGrid, mousePos, gridRect }) {
   const cardRef = useRef(null);
   const videoRef = useRef(null);
   const [localMousePos, setLocalMousePos] = useState({ x: -1000, y: -1000 });
@@ -140,7 +140,7 @@ function DesktopCard({ card, index, gridCol, gridRow, typingDone, mousePos, grid
     <motion.div
       ref={cardRef}
       initial={{ opacity: 0, y: 40 }}
-      animate={typingDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      animate={revealGrid ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{
         duration: 0.5,
         delay: index * 0.1,
@@ -194,8 +194,7 @@ export default function FeaturesGrid() {
   const gridRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
-  const typingDone = typedLength >= HEADING_TEXT.length;
-
+  // Heading typewriter and card reveal both start as soon as the section is in view.
   useEffect(() => {
     if (!isInView) return;
     if (typedLength >= HEADING_TEXT.length) return;
@@ -233,7 +232,7 @@ export default function FeaturesGrid() {
             key={card.id}
             card={card}
             index={index}
-            typingDone={typingDone}
+            revealGrid={isInView}
           />
         ))}
       </div>
@@ -261,7 +260,7 @@ export default function FeaturesGrid() {
               index={index}
               gridCol={gridCol}
               gridRow={gridRow}
-              typingDone={typingDone}
+              revealGrid={isInView}
               mousePos={mousePos}
               gridRect={gridRect}
             />

@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
 const THEMES = [
   {
@@ -128,7 +128,11 @@ const THEME_TRANSITION_MS = 450;
 
 export default function HeroCard() {
   const cardRef = useRef(null);
-  const [clipPath, setClipPath] = useState("circle(0% at 50% 50%)");
+  const isInView = useInView(cardRef, {
+    once: true,
+    amount: 0.35,
+    margin: "0px 0px -12% 0px",
+  });
   const [activeThemeIndex, setActiveThemeIndex] = useState(null);
   const [expandedOverlays, setExpandedOverlays] = useState([false, false, false]);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -192,41 +196,8 @@ export default function HeroCard() {
     };
   }, []);
 
-  useEffect(() => {
-    const el = cardRef.current;
-    if (!el) return;
-
-    const updateProgress = () => {
-      const rect = el.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const viewportCenter = vh / 2;
-      const progressStart = vh * 0.7;
-      const progressEnd = viewportCenter - rect.height / 2;
-      const progress = Math.max(
-        0,
-        Math.min(1, (progressStart - rect.top) / (progressStart - progressEnd))
-      );
-      const radius = progress * 150;
-      setClipPath(`circle(${radius}% at 50% 50%)`);
-    };
-
-    updateProgress();
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", updateProgress);
-    return () => {
-      window.removeEventListener("scroll", updateProgress);
-      window.removeEventListener("resize", updateProgress);
-    };
-  }, []);
-
   const baseColors = { primary: "#757575", accent: "#757575", sub: "#757575" };
   const scrollRevealColors = { primary: "#ffffff", accent: "#FFAC3B", sub: "rgba(255,255,255,0.95)" };
-
-  // Get circle center based on active theme (for desktop)
-  const getCircleCenter = (index) => {
-    if (index === null || !isDesktop) return { x: 50, y: 50 };
-    return { x: THEMES[index].circleCenterX, y: THEMES[index].circleCenterY };
-  };
 
   return (
     <section
@@ -236,12 +207,14 @@ export default function HeroCard() {
       <div className="relative w-full overflow-hidden rounded-2xl md:rounded-4xl min-h-[320px] sm:min-h-[360px] md:min-h-[400px]">
         {/* Background layers */}
         <div className="absolute inset-0 z-0 bg-white rounded-2xl md:rounded-4xl" />
-        <div
+        <motion.div
           className="absolute inset-0 z-10 rounded-2xl md:rounded-4xl"
-          style={{
-            backgroundColor: "rgb(41, 75, 126)",
-            clipPath,
+          style={{ backgroundColor: "rgb(41, 75, 126)" }}
+          initial={{ clipPath: "circle(0% at 50% 50%)" }}
+          animate={{
+            clipPath: isInView ? "circle(150% at 50% 50%)" : "circle(0% at 50% 50%)",
           }}
+          transition={{ duration: 0.95, ease: [0.22, 0.61, 0.36, 1] }}
         />
 
         {/* Base text layer */}
@@ -251,16 +224,20 @@ export default function HeroCard() {
           </div>
         </div>
 
-        {/* Scroll reveal layer */}
-        <div
+        {/* Highlight copy — same clip reveal as brand layer, viewport-triggered */}
+        <motion.div
           className="absolute inset-0 z-30 flex flex-col justify-center pointer-events-none rounded-2xl md:rounded-4xl"
-          style={{ clipPath }}
+          initial={{ clipPath: "circle(0% at 50% 50%)" }}
+          animate={{
+            clipPath: isInView ? "circle(150% at 50% 50%)" : "circle(0% at 50% 50%)",
+          }}
+          transition={{ duration: 0.95, ease: [0.22, 0.61, 0.36, 1] }}
           aria-hidden
         >
           <div className="px-6 sm:px-8 md:px-14 py-6 sm:py-8 md:py-10 w-full lg:max-w-[55%]">
             <HeroText {...scrollRevealColors} />
           </div>
-        </div>
+        </motion.div>
 
         {/* Theme overlays */}
         {THEMES.map((theme, i) => {
