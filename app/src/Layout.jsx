@@ -178,6 +178,11 @@ export default function Layout() {
                       Privacy Policy
                     </Link>
                   </li>
+                  <li>
+                    <Link to="/terms" className="text-dark-grey hover:text-blue transition-colors text-sm">
+                      Terms of Service
+                    </Link>
+                  </li>
                 </ul>
               </div>
 
