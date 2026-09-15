@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
+import GoogleAnalytics from "./GoogleAnalytics.jsx";
 import { motion as Motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import logo from "./assets/logo.png";
@@ -239,6 +240,7 @@ export default function Layout() {
           </div>
         </div>
       </footer>
+      <GoogleAnalytics />
     </div>
   );
 }

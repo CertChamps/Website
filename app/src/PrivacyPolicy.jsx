@@ -134,9 +134,10 @@ export default function PrivacyPolicy() {
               <h2 className="privacy-policy-h2">Cookies Etc.</h2>
               <p className="privacy-policy-p">
                 We use cookies, local storage and similar technologies where needed to keep you signed in, remember
-                settings, secure the Service and provide requested functionality. If we introduce non-essential
-                analytics or advertising technologies that require consent, we will provide an appropriate choice
-                before using them.
+                settings, secure the Service and provide requested functionality. We also use Google Analytics to
+                understand how the marketing site and web app are used. Analytics cookies are only stored after you
+                accept them in the consent banner. You can decline analytics; essential cookies for sign-in and
+                security continue to work either way.
               </p>
             </li>
 
