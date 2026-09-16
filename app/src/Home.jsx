@@ -61,19 +61,19 @@ export default function Home() {
               </span>
             </Motion.h1>
             <Motion.h2
-              className="text-base sm:text-lg md:text-xl text-dark-grey w-full sm:w-2/3 md:w-1/2 lg:w-1/3 mx-auto text-center px-4"
+              className="text-base sm:text-lg md:text-xl text-dark-grey w-full sm:w-2/3 md:w-1/2 lg:max-w-2xl mx-auto text-center px-4"
               initial={{ opacity: 0, filter: "blur(10px)" }}
               animate={{ opacity: 1, filter: "blur(0px)" }}
               transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 0.61, 0.36, 1] }}
             >
-              The all in one Leaving Cert platform that helps you practice questions, exactly how you want.
+              The all-in-one Leaving Cert study platform for students to practise questions, revise subjects and prepare for their exams.
             </Motion.h2>
           </div>
 
           <div className="hidden md:block relative w-full h-[50vh] lg:h-[55vh]">
             <Motion.img
               src={full_app}
-              alt="full_app"
+              alt="CertChamps Leaving Cert study and practice app"
               className="h-full max-h-[500px] object-contain absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-[55%] z-10"
               initial={{ opacity: 0, x: 36 }}
               animate={{ opacity: 1, x: 0 }}
@@ -81,7 +81,7 @@ export default function Home() {
             />
             <Motion.img
               src={ai_snippet}
-              alt="ai_snippet"
+              alt="CertChamps AI helping with Leaving Cert exam questions"
               className="h-full max-h-[520px] object-contain absolute top-1/2 -translate-y-[45%] left-1/2 translate-x-[15%] z-10"
               initial={{ opacity: 0, x: 28 }}
               animate={{ opacity: 1, x: 0 }}
@@ -92,7 +92,7 @@ export default function Home() {
           <div className="md:hidden w-full flex flex-col items-center py-8">
             <Motion.img
               src={full_app}
-              alt="full_app"
+              alt="CertChamps Leaving Cert study and practice app"
               className="w-[85%] max-w-[400px] object-contain"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

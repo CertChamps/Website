@@ -50,7 +50,7 @@ export default function Layout() {
         }`}
       >
         <Link to="/" className="flex items-center gap-2 z-50">
-          <img src={logo} alt="logo" className="w-8 h-8 object-contain" />
+          <img src={logo} alt="CertChamps Leaving Cert study platform" className="w-8 h-8 object-contain" />
           <h1 className="font-bold text-black">
             Cert<span className="text-gold">Champs</span>
           </h1>
@@ -137,7 +137,7 @@ export default function Layout() {
           <div className="flex flex-col md:flex-row md:justify-between gap-10 md:gap-12">
             <div className="flex flex-col items-center md:items-start">
               <Link to="/" className="flex items-center gap-2 mb-4">
-                <img src={logo} alt="logo" className="w-10 h-10 object-contain" />
+                <img src={logo} alt="CertChamps Leaving Cert study platform" className="w-10 h-10 object-contain" />
                 <h1 className="font-bold text-black text-xl">
                   Cert<span className="text-gold">Champs</span>
                 </h1>
