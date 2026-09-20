@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const MEASUREMENT_ID = "G-T9KRDYV6J";
+const MEASUREMENT_ID = "G-7SKFDGYV8J";
 const CONSENT_KEY = "certchamps-analytics-consent";
 
 function pagePath(location) {
