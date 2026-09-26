@@ -29,5 +29,6 @@ export default defineConfig({
     outDir: siteRoot,
     emptyOutDir: false,
   },
+  assetsInclude: ['**/*.riv'],
   base: '/',
 })

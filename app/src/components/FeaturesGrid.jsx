@@ -40,7 +40,7 @@ const GRID_CARDS = [
   {
     id: "filter",
     video: filter_demo,
-    title: "Find your paper quicker than ever.",
+    title: "Find your Leaving Cert and Junior Cert exam papers faster than ever.",
     description: "No more clicking through many pages just to find the paper you need. Find it in record with our powerful filter system. We found our paper in under 2 seconds.",
     cta: "try beat us",
   },

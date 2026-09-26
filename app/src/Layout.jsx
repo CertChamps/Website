@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import GoogleAnalytics from "./GoogleAnalytics.jsx";
 import { motion as Motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import logo from "./assets/logo.png";
 
 export default function Layout() {
+  const location = useLocation();
   const [emailCopied, setEmailCopied] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -20,6 +21,15 @@ export default function Layout() {
   useMotionValueEvent(scrollY, "change", (latest) => {
     setHasScrolled(latest > 10);
   });
+
+  useEffect(() => {
+    const id = location.hash.replace("#", "");
+    if (id !== "pricing" && id !== "about") return;
+    const t = window.setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }, 50);
+    return () => window.clearTimeout(t);
+  }, [location.hash, location.pathname]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -57,10 +67,10 @@ export default function Layout() {
         </Link>
 
         <div className="hidden md:flex items-center flex-1 justify-center gap-6">
-          <Link to="/" className="text-dark-grey hover:text-blue transition-colors">
+          <Link to="/#about" className="text-dark-grey hover:text-blue transition-colors">
             about
           </Link>
-          <Link to="/" className="text-dark-grey hover:text-blue transition-colors">
+          <Link to="/#pricing" className="text-dark-grey hover:text-blue transition-colors">
             pricing
           </Link>
           <Link to="/" className="text-dark-grey hover:text-blue transition-colors">
@@ -96,14 +106,14 @@ export default function Layout() {
             >
               <div className="flex flex-col items-center justify-center h-full gap-8 pt-16">
                 <Link
-                  to="/"
+                  to="/#about"
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-2xl text-dark-grey hover:text-blue transition-colors"
                 >
                   about
                 </Link>
                 <Link
-                  to="/"
+                  to="/#pricing"
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-2xl text-dark-grey hover:text-blue transition-colors"
                 >
@@ -160,12 +170,12 @@ export default function Layout() {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/" className="text-dark-grey hover:text-blue transition-colors text-sm">
+                    <Link to="/#about" className="text-dark-grey hover:text-blue transition-colors text-sm">
                       About
                     </Link>
                   </li>
                   <li>
-                    <Link to="/" className="text-dark-grey hover:text-blue transition-colors text-sm">
+                    <Link to="/#pricing" className="text-dark-grey hover:text-blue transition-colors text-sm">
                       Pricing
                     </Link>
                   </li>
