@@ -5,8 +5,6 @@ import ai_snippet from "./assets/ai_snippet_app.webp";
 import StudyIconsParallax from "./components/StudyIconsParallax";
 import FeaturesGrid from "./components/FeaturesGrid";
 import HeroCard from "./components/HeroCard";
-import PricingSection from "./components/PricingSection";
-import AboutSection from "./components/AboutSection";
 import promo from "./assets/videos/promo_vid.mp4";
 
 export default function Home() {
@@ -132,9 +130,6 @@ export default function Home() {
           <video src={promo} controls loop className="w-full rounded-lg md:rounded-xl" style={{ aspectRatio: "16/9" }} />
         </Motion.div>
       </section>
-
-      <PricingSection />
-      <AboutSection />
     </div>
   );
 }

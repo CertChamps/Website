@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
 import crownIdleUrl from "../assets/crown_idle.riv?url";
 
-const HEADING = "behind the crown";
+const HEADING = "Behind the crown";
 const SUBHEADING = "Built by people who have sat the same exams, for students who are in it together.";
 
 const ease = [0.22, 0.61, 0.36, 1];
@@ -62,13 +62,12 @@ function FloatingCrown() {
 export default function AboutSection() {
   return (
     <section
-      id="about"
-      className="relative z-10 w-full max-w-[1200px] mx-auto px-4 md:px-8 py-12 md:py-20 scroll-mt-24"
+      className="relative z-10 w-full max-w-[1200px] mx-auto px-4 md:px-8 pt-24 md:pt-28 pb-12 md:pb-20"
     >
       <div className="text-center mb-10 md:mb-12">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-dark-grey mb-3">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-dark-grey mb-3">
           <AnimatedWords text={HEADING} />
-        </h2>
+        </h1>
         <p className="text-dark-grey text-sm sm:text-base max-w-xl mx-auto">
           <AnimatedWords text={SUBHEADING} delay={0.28} />
         </p>
@@ -97,15 +96,15 @@ export default function AboutSection() {
                 shared goal. After all, you are all in this together.
               </p>
               <p>
-                Our goal is a platform that gets the work done without making study feel like a chore. Built out of
+                Our goal is a platform that gets the work done without making study feel like a chore. It is built out of
                 passion, for students who want to practise like a champ.
               </p>
               <h3 className="text-lg md:text-xl font-semibold text-black pt-2">
-                why we created it
+                Why we created it
               </h3>
               <p>
-                We saw the growing number of students using iPads and wanted to give them an app that felt like
-                everything was integrated into a smooth experience.
+                We saw more and more students using iPads, and we wanted to give them an app where everything felt
+                integrated into one smooth experience.
               </p>
             </div>
             <div className="flex flex-col items-center shrink-0 mx-auto md:mx-0 md:-mt-2">

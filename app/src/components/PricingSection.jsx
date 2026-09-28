@@ -31,7 +31,7 @@ const ACE_FEATURES = [
   ...ACE_ONLY_FEATURES.map((text) => ({ text, included: true })),
 ];
 
-const HEADING = "simple pricing";
+const HEADING = "Simple pricing";
 const SUBHEADING =
   "Start free with every paper, Discover, and a taste of AI. Upgrade to CertChamps ACE when you want higher limits.";
 
@@ -337,13 +337,12 @@ function PlanCard({ name, price, period, description, features, featured, cta, h
 export default function PricingSection() {
   return (
     <section
-      id="pricing"
-      className="relative z-10 w-full max-w-[1200px] mx-auto px-4 md:px-8 py-12 md:py-20 scroll-mt-24"
+      className="relative z-10 w-full max-w-[1200px] mx-auto px-4 md:px-8 pt-24 md:pt-28 pb-12 md:pb-20"
     >
       <div className="text-center mb-10 md:mb-12">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-dark-grey mb-3">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-dark-grey mb-3">
           <AnimatedWords text={HEADING} />
-        </h2>
+        </h1>
         <p className="text-dark-grey text-sm sm:text-base max-w-xl mx-auto">
           <AnimatedWords text={SUBHEADING} delay={0.28} />
         </p>
