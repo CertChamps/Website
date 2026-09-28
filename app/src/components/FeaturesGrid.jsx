@@ -26,22 +26,22 @@ const GRID_CARDS = [
   {
     id: "ai",
     video: ai_demo,
-    title: "AI always by your side",
-    description: "Ask AI to help you to solve questions and explain concepts. Our AI can view your workings and can see the current question you are working on.",
+    title: "AI help for Leaving Cert & Junior Cert questions",
+    description: "Get AI help with Leaving Cert questions, explanations and concepts. Our AI can view your workings and the questions you are working on to help you understand each step.",
     cta: "try it out",
   },
   {
     id: "timer",
     video: timer_demo,
-    title: "Manage your time",
-    description: "Built-in pomodoro timer to maximise focus and productivity. Set custom timers to keep track of timing when completing questions, and never run out of time in an exam again.",
+    title: "Pomodoro timer for Leaving Cert study",
+    description: "Use a built-in Pomodoro timer to stay focused while studying for the Leaving Cert. Set custom timers for practice questions and manage your study time more effectively.",
     cta: "start",
   },
   {
     id: "filter",
     video: filter_demo,
-    title: "Find your Leaving Cert and Junior Cert exam papers faster than ever.",
-    description: "No more clicking through many pages just to find the paper you need. Find it in record with our powerful filter system. We found our paper in under 2 seconds.",
+    title: "Find Leaving Cert exam papers faster.",
+    description: "Find the Leaving Cert exam paper you need in seconds with our powerful filter system. Quickly find the paper you need without clicking through multiple pages.",
     cta: "try beat us",
   },
   {
@@ -82,15 +82,18 @@ function MobileCard({ card, index, revealGrid }) {
     >
       {card.video && (
         <>
-          <div className="w-full aspect-video p-3 sm:p-4">
-            <video
-              ref={videoRef}
-              src={card.video}
-              muted
-              loop
-              playsInline
-              className="w-full h-full object-cover rounded-lg"
-            />
+          <div className="relative aspect-video w-full">
+            <div className="absolute inset-3 overflow-hidden rounded-lg sm:inset-4">
+              <video
+                ref={videoRef}
+                src={card.video}
+                muted
+                loop
+                playsInline
+                className="block h-full w-full object-cover"
+                style={{ width: "100%", height: "100%" }}
+              />
+            </div>
           </div>
           <div className="px-4 sm:px-5 pb-6 sm:pb-8 pt-2 sm:pt-3">
             <h3 className="text-lg sm:text-xl font-bold text-blue">{card.title}</h3>
@@ -146,7 +149,7 @@ function DesktopCard({ card, index, gridCol, gridRow, revealGrid, mousePos, grid
         delay: index * 0.1,
         ease: [0.22, 0.61, 0.36, 1],
       }}
-      className="rounded-lg overflow-hidden flex flex-col cursor-pointer"
+      className="relative z-0 h-full min-h-0 overflow-hidden rounded-lg flex flex-col cursor-pointer"
       style={{
         gridColumn: gridCol,
         gridRow: gridRow,
@@ -160,17 +163,20 @@ function DesktopCard({ card, index, gridCol, gridRow, revealGrid, mousePos, grid
     >
       {card.video && (
         <>
-          <div className="flex-1 min-h-0 relative p-6">
-            <video
-              ref={videoRef}
-              src={card.video}
-              muted
-              loop
-              playsInline
-              className="w-full h-full object-cover rounded-lg"
-            />
+          <div className="relative min-h-0 flex-1">
+            <div className="absolute inset-6 overflow-hidden rounded-lg">
+              <video
+                ref={videoRef}
+                src={card.video}
+                muted
+                loop
+                playsInline
+                className="block h-full w-full object-cover"
+                style={{ width: "100%", height: "100%" }}
+              />
+            </div>
           </div>
-          <div className="shrink-0 px-5 pb-10 pt-5">
+          <div className="relative z-10 shrink-0 bg-white px-5 pb-10 pt-5">
             <h3 className="text-xl font-bold text-blue">{card.title}</h3>
             <p className="text-dark-grey text-sm py-2">{card.description}</p>
             {card.cta && (

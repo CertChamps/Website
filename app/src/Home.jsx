@@ -44,7 +44,7 @@ export default function Home() {
         onMouseMove={handleMouseMove}
       >
         <div className="flex flex-col items-center justify-start w-full relative px-4 md:px-8">
-          <div className="flex flex-col items-center w-full z-10 py-4 md:py-5">
+          <div className="relative z-20 flex flex-col items-center w-full py-4 md:py-5">
             <Motion.h1
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight -tracking-[0.1rem] md:-tracking-[0.15rem] mb-4 text-black w-full text-center"
               initial={{ opacity: 0, filter: "blur(12px)" }}
@@ -72,21 +72,23 @@ export default function Home() {
             </Motion.h2>
           </div>
 
-          <div className="hidden md:block relative w-full h-[50vh] lg:h-[55vh]">
+          <div className="relative mt-2 hidden h-[50vh] w-full overflow-hidden md:block lg:h-[55vh]">
             <Motion.img
               src={full_app}
               alt="CertChamps Leaving Cert study and practice app"
-              className="h-full max-h-[500px] object-contain absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-[55%] z-10"
-              initial={{ opacity: 0, x: 36 }}
-              animate={{ opacity: 1, x: 0 }}
+              className="absolute top-0 left-1/2 z-10 object-contain"
+              style={{ height: "100%", width: "auto", maxWidth: "none" }}
+              initial={{ opacity: 0, x: "-48%" }}
+              animate={{ opacity: 1, x: "-55%" }}
               transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
             />
             <Motion.img
               src={ai_snippet}
               alt="CertChamps AI helping with Leaving Cert exam questions"
-              className="h-full max-h-[520px] object-contain absolute top-1/2 -translate-y-[45%] left-1/2 translate-x-[15%] z-10"
-              initial={{ opacity: 0, x: 28 }}
-              animate={{ opacity: 1, x: 0 }}
+              className="absolute top-0 left-1/2 z-10 object-contain"
+              style={{ height: "100%", width: "auto", maxWidth: "none" }}
+              initial={{ opacity: 0, x: "8%" }}
+              animate={{ opacity: 1, x: "15%" }}
               transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
             />
           </div>
