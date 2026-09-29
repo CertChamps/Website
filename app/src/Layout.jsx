@@ -5,6 +5,14 @@ import { motion as Motion, AnimatePresence, useScroll, useMotionValueEvent } fro
 import { Menu, X } from "lucide-react";
 import logo from "./assets/logo.png";
 
+const PAGE_TITLES = {
+  "/": "CertChamps | Leaving Cert Study & Practice Platform",
+  "/pricing": "Pricing | CertChamps",
+  "/about": "About | CertChamps",
+  "/privacy": "Privacy Policy | CertChamps",
+  "/terms": "Terms of Service | CertChamps",
+};
+
 export default function Layout() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,6 +30,10 @@ export default function Layout() {
   useMotionValueEvent(scrollY, "change", (latest) => {
     setHasScrolled(latest > 10);
   });
+
+  useEffect(() => {
+    document.title = PAGE_TITLES[location.pathname] ?? PAGE_TITLES["/"];
+  }, [location.pathname]);
 
   useEffect(() => {
     if (location.hash === "#pricing") {

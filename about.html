@@ -1,90 +1,47 @@
-<!DOCTYPE html>
-<head>
-    <title>CertChamps - About Us</title>
-     <meta name="viewport" content="width=device-width, initial-scale=0.75">
-
-    <link rel="stylesheet" href="./styles/nav-footer.css" >
-    <link rel="stylesheet" href="./styles/about.css" >
-</head>
-<body>
-    <!-- NAVINGATION BAR -->
-    <nav>
-        <a href="./index.html"><div class="nav-left">
-            <img alt="logo" src="./assets/logo.png"  >
-            <h1>Cert<span class="highlight">Champs</span></h1>
-        </div></a>
-        
-        <div class="nav-right">
-            <a href="./about.html">About Us</a>
-            <!-- <a href="./pricing.html">Pricing</a>
-            <a href="./careers.html">Careers</a>
-            <a href="./login.html" class="nav-login">Log In</a> -->
-        </div>
-    </nav>
-    <!-- WHO WE ARE -->
-    <section class="intro">
-        <h1>Behind the <span class="highlight">Crown</span></h1>
-        <p>We're engineers. Of course we know the struggle of having to study even though you really don't want to.
-            Of course we know that feeling when you have a very specific question and don't know who exactly to ask.
-            We created CertChamps to foster an engaging and competitive environment that makes exam preparation addictive, and to 
-            provide a sense of community for you Leaving Cert students. After all, you are all in this together to reach a common goal.
-        </p>
-        <p>We are proud to have created a platform, that reduces 'study' from your routine while still getting the work done!</p>
-        <!-- <a href="./index.html">Get CertChamps &rarr;</a> -->
-    </section>
-    <!-- OUR GOALS -->
-    <section class="intro" id="goals" >
-       <div>
-            <h1>Our <span class="highlight">Goals</span></h1>
-            <p>
-                Our main goal is to create the best possible platform for practicing maths questions. Another huge priority for us is making all content and features
-                completely free and easily accessible to all students. We were tired of all the existing platforms asking for huge sums of money and leaving passion 
-                out the door. But we are changing that. The reason we built this was out of passion not monetisation and we are more that excited to share our work with you.
-            </p>
-
-            <!-- <a href="./index.html">Join Beta Test</a> -->
-        </div>
-        <!-- <img alt="goals image" src="./assets/goals.png" > -->
-    </section>
-    <!-- FOOTER -->
-    <section class="footer">
-        <div class="footer-title">
-            <div style="display: flex; align-items: center;" >
-                <img alt="logo" src="./assets/logo.png"  >
-                <h1>Cert<span class="highlight">Champs</span></h1>
-            </div>
-         
-            <!-- <p>Download Our App</p>
-            <a href="https://play.google.com/store/games?hl=en" >
-                <img alt="google play" src="./assets/google-play-button.svg" >
-            </a>
-            <a href="https://www.apple.com/ie/app-store/" >
-                <img alt="apple store" src="./assets/app-store-button.svg" >
-            </a> -->
-        </div>
-        <div class="footer-product">
-            <h2>Product</h2>
-            <a href="./index.html" >Overview</a>
-        </div>
-        <div class="footer-company">
-            <h2>Company</h2>
-            <a href="./about.html">About Us</a>
-            <a href="./404.html">Careers</a>
-            <a href="./404.html">Contact Us</a>
-        </div>
-        <div class="footer-social">
-            <h2>Socials</h2>
-            <a href="./404.html" target="_blank" >Instagram</a>
-            <a href="./404.html" target="_blank" >Twitter</a>
-            <a href="./404.html" target="_blank" >Facebook</a>
-            <a href="./404.html" target="_blank" >Linkedin</a>
-        </div>
-    </section>
-    <div class="footer-bottom">
-        <p>&copy;CertChamps 2025</p>
-        <a href="./404.html" target="_blank" ><img alt="instagram" src="./assets/insta-icon.png" width="24px" height="24px"></a>
-        <a href="./404.html" target="_blank" ><img alt="facebook" src="./assets/facebook-icon.png" width="24px" height="24px"></a>
-        <a href="./404.html" target="_blank" ><img alt="twitter" src="./assets/twitter-icon.png" width="24px" height="24px"></a>
-        <a href="./404.html" target="_blank" ><img alt="linkedin" src="./assets/linkedin-icon.png" width="24px" height="24px"></a>
-    </div>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | CertChamps</title>
+    <meta name="description" content="CertChamps is built by people who have sat the Leaving Cert, for students who are in it together." />
+    <link rel="canonical" href="https://www.certchamps.ie/about" />
+    <meta property="og:title" content="About | CertChamps" />
+    <meta property="og:description" content="CertChamps is built by people who have sat the Leaving Cert, for students who are in it together." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.certchamps.ie/about" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="About | CertChamps" />
+    <meta name="twitter:description" content="CertChamps is built by people who have sat the Leaving Cert, for students who are in it together." />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SKFDGYV8J"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      (function () {
+        var granted = false;
+        try { granted = localStorage.getItem("certchamps-analytics-consent") === "granted"; } catch (e) {}
+        gtag("consent", "default", {
+          analytics_storage: granted ? "granted" : "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied"
+        });
+        gtag("js", new Date());
+        var debug = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+        gtag("config", "G-7SKFDGYV8J", { anonymize_ip: true, debug_mode: debug });
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/index-CChvwti3.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index--w6F7BUj.css">
+  </head>
+  <body>
+    <div id="root"><h1>Behind the crown</h1><p>Built by people who have sat the same exams, for students who are in it together.</p><h2>Why we created it</h2><p>We saw more and more students using iPads, and we wanted to give them an app where everything felt integrated into one smooth experience.</p></div>
+    <script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/Rwhr4e/klaviyo.js?company_id=Rwhr4e"></script>
+    <script type="text/javascript">
+      // Initialize Klaviyo object on page load
+      !function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}();
+    </script>
+  </body>
+</html>
