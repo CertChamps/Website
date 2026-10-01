@@ -21,8 +21,8 @@ const routePages = [
     path: '/about',
     title: 'About | CertChamps',
     description:
-      'CertChamps is built by people who have sat the Leaving Cert, for students who are in it together.',
-    body: '<h1>Behind the crown</h1><p>Built by people who have sat the same exams, for students who are in it together.</p><h2>Why we created it</h2><p>We saw more and more students using iPads, and we wanted to give them an app where everything felt integrated into one smooth experience.</p>',
+      'Ben and Cian built CertChamps after sitting the Leaving Cert, so students can practise questions and prepare for exams in one place.',
+    body: '<h1>Our story</h1><p>It all began with two students, one shared experience, and one simple question: why isn\'t there an easier way to learn?</p><p>Ben and Cian sat the Leaving Cert and built the study platform they wished they had.</p>',
   },
   {
     file: 'privacy.html',
