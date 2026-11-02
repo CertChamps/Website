@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
 import crownIdleUrl from "../assets/crown_idle.riv?url";
 
@@ -11,7 +11,7 @@ const ease = [0.22, 0.61, 0.36, 1];
 function AnimatedWords({ text, delay = 0, highlight }) {
   const words = text.split(" ");
   return (
-    <motion.span
+    <Motion.span
       initial="hidden"
       animate="show"
       variants={{
@@ -23,7 +23,7 @@ function AnimatedWords({ text, delay = 0, highlight }) {
         const plain = word.replace(/[^\w']/g, "").toLowerCase();
         const highlighted = highlight && plain === highlight.toLowerCase();
         return (
-          <motion.span
+          <Motion.span
             key={`${word}-${i}`}
             className={`inline-block mr-[0.28em] last:mr-0${
               highlighted ? " font-bold bg-clip-text text-transparent" : ""
@@ -40,10 +40,10 @@ function AnimatedWords({ text, delay = 0, highlight }) {
             }}
           >
             {word}
-          </motion.span>
+          </Motion.span>
         );
       })}
-    </motion.span>
+    </Motion.span>
   );
 }
 
@@ -100,20 +100,20 @@ export default function AboutSection() {
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
           {founders.map((founder) => (
             <div key={founder.name} className="rounded-2xl bg-white border border-grey/20 p-6">
-              <h2 className="text-xl font-bold text-blue mb-3">{founder.name}</h2>
+              <h2 className="text-xl font-bold text-[#E99A11] mb-3">{founder.name}</h2>
               <p className="text-sm leading-relaxed text-dark-grey">{founder.text}</p>
             </div>
           ))}
         </div>
 
         <div className="mt-8 space-y-4 text-sm sm:text-base leading-relaxed text-dark-grey">
-          <p className="text-black font-semibold">These two ideas became the foundation of CertChamps.</p>
+          <p>These two ideas became the foundation of CertChamps.</p>
           <p>
             We&apos;ve always been passionate about engineering, technology and programming, so we decided to put our
             skills to work and build the kind of study platform we wished we had when preparing for our own Leaving
             Cert exams.
           </p>
-          <h2 className="text-xl md:text-2xl font-bold text-blue pt-4">
+          <h2 className="text-xl md:text-2xl font-bold text-[#E99A11] pt-4">
             The best way to learn is by doing.
           </h2>
           <p>
@@ -122,14 +122,14 @@ export default function AboutSection() {
             around active practice and exam preparation, giving students an easier way to practise questions, identify
             what they need to improve and build confidence along the way.
           </p>
-          <p className="text-black font-semibold">We didn&apos;t want to create just another question bank.</p>
+          <p>We didn&apos;t want to create just another question bank.</p>
           <p>
             We set out to build a complete study ecosystem that fits naturally into the way students learn today. From
             our web platform to our mobile and iPad apps, CertChamps brings the tools students need for revision and
             exam practice together in one connected experience.
           </p>
-          <h2 className="text-xl md:text-2xl font-bold text-blue pt-4">Our goal</h2>
-          <p className="text-black font-semibold">Make studying more efficient, accessible and effective.</p>
+          <h2 className="text-xl md:text-2xl font-bold text-[#E99A11] pt-4">Our goal</h2>
+          <p>Make studying more efficient, accessible and effective.</p>
           <p>
             We built CertChamps because we experienced the problem ourselves. We built it for the students who are
             experiencing it today.

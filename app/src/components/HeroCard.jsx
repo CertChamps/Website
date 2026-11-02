@@ -1,296 +1,85 @@
-import { useRef, useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState } from "react";
 
 const THEMES = [
   {
     name: "Nord Dark",
     bg: "#242933",
-    accent: "#88c0d0",
-    primary: "#88c0d0",
-    sub: "#d8dee9",
-    // Desktop pill positioning
-    pillTop: "18%",
-    pillLeft: "60%",
-    pillWidth: "min(30%, 170px)",
-    pillHeight: "44px",
-    circleCenterX: 39,
-    circleCenterY: 22,
-    delay: 0,
+    primary: "#88C0D0",
+    accent: "#88C0D0",
+    sub: "#D8DEE9",
   },
   {
     name: "Camping",
     bg: "#FAF1E4",
-    accent: "#3C403B",
     primary: "#618C56",
-    sub: "#C2B8AA",
-    pillTop: "42%",
-    pillLeft: "75%",
-    pillWidth: "min(18%, 170px)",
-    pillHeight: "44px",
-    circleCenterX: 81,
-    circleCenterY: 46,
-    delay: 0.3,
+    accent: "#3C403B",
+    sub: "#3C403B",
   },
   {
     name: "Magic Girl",
-    bg: "#291f33",
-    accent: "#b3a1c4",
-    primary: "#a982c4",
-    sub: "#86679c",
-    pillTop: "68%",
-    pillLeft: "67%",
-    pillWidth: "min(18%, 170px)",
-    pillHeight: "44px",
-    circleCenterX: 79,
-    circleCenterY: 72,
-    delay: 0.6,
+    bg: "#291F33",
+    primary: "#B3A1C4",
+    accent: "#B3A1C4",
+    sub: "#D7CBE0",
   },
 ];
 
-// Single source of truth for hero copy
-function HeroText({ primary, accent, sub }) {
-  return (
-    <>
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight mb-3" style={{ color: primary }}>
-        The <span style={{ color: accent }}>Only</span> Customisable Leaving Cert App
-      </h2>
-      <p className="text-sm sm:text-base md:text-lg" style={{ color: sub }}>
-        Choose from a wide range of themes, and study with the aesthetic that matches your vibe. 
-      </p>
-    </>
-  );
-}
-
-// Mobile pill (simple button)
-function MobilePill({ theme, onSelect }) {
-  const [isPointerOver, setIsPointerOver] = useState(false);
-  return (
-    <motion.button
-      className="rounded-full flex items-center justify-center cursor-pointer px-4 py-2 font-semibold text-sm whitespace-nowrap select-none"
-      style={{
-        backgroundColor: theme.bg,
-        color: theme.accent,
-      }}
-      onMouseEnter={() => {
-        setIsPointerOver(true);
-        onSelect?.();
-      }}
-      onMouseLeave={() => setIsPointerOver(false)}
-      onClick={() => onSelect?.()}
-      animate={{
-        scale: isPointerOver ? 1.08 : 1,
-      }}
-      transition={{
-        scale: { duration: 0.2 },
-      }}
-    >
-      {theme.name}
-    </motion.button>
-  );
-}
-
-// Desktop pill (positioned absolutely with floating animation)
-function DesktopPill({ theme, onSelect }) {
-  const [isPointerOver, setIsPointerOver] = useState(false);
-  return (
-    <motion.div
-      className="absolute rounded-full flex items-center justify-center cursor-pointer px-4 font-semibold text-sm whitespace-nowrap select-none"
-      style={{
-        top: theme.pillTop,
-        left: theme.pillLeft,
-        width: theme.pillWidth,
-        height: theme.pillHeight,
-        backgroundColor: theme.bg,
-        color: theme.accent,
-      }}
-      onMouseEnter={() => {
-        setIsPointerOver(true);
-        onSelect?.();
-      }}
-      onMouseLeave={() => setIsPointerOver(false)}
-      animate={{
-        scale: isPointerOver ? 1.08 : 1,
-        y: isPointerOver ? 0 : [0, -8, 0],
-      }}
-      transition={{
-        scale: { duration: 0.2 },
-        y: isPointerOver
-          ? { duration: 0 }
-          : { duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: theme.delay ?? 0 },
-      }}
-    >
-      {theme.name}
-    </motion.div>
-  );
-}
-
-const THEME_TRANSITION_MS = 450;
+const DEFAULT_THEME = {
+  bg: "#FFFFFF",
+  primary: "#151515",
+  accent: "#E99A11",
+  sub: "#757575",
+};
 
 export default function HeroCard() {
-  const cardRef = useRef(null);
-  const isInView = useInView(cardRef, {
-    once: true,
-    amount: 0.35,
-    margin: "0px 0px -12% 0px",
-  });
   const [activeThemeIndex, setActiveThemeIndex] = useState(null);
-  const [expandedOverlays, setExpandedOverlays] = useState([false, false, false]);
-  const [isDesktop, setIsDesktop] = useState(false);
-  const transitionTimeoutRef = useRef(null);
-
-  // Check if desktop
-  useEffect(() => {
-    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
-    checkDesktop();
-    window.addEventListener('resize', checkDesktop);
-    return () => window.removeEventListener('resize', checkDesktop);
-  }, []);
-
-  const handleThemeSelect = (index) => {
-    if (index === activeThemeIndex) return;
-    
-    if (transitionTimeoutRef.current) {
-      clearTimeout(transitionTimeoutRef.current);
-    }
-    
-    const prevIndex = activeThemeIndex;
-    setActiveThemeIndex(index);
-    
-    setExpandedOverlays(prev => {
-      const next = [...prev];
-      next[index] = true;
-      return next;
-    });
-    
-    if (prevIndex !== null) {
-      transitionTimeoutRef.current = setTimeout(() => {
-        setExpandedOverlays(prev => {
-          const next = [...prev];
-          next[prevIndex] = false;
-          return next;
-        });
-      }, THEME_TRANSITION_MS + 50);
-    }
-  };
-
-  const handleThemeLeave = () => {
-    if (transitionTimeoutRef.current) {
-      clearTimeout(transitionTimeoutRef.current);
-    }
-    
-    const prevIndex = activeThemeIndex;
-    setActiveThemeIndex(null);
-    
-    if (prevIndex !== null) {
-      transitionTimeoutRef.current = setTimeout(() => {
-        setExpandedOverlays([false, false, false]);
-      }, THEME_TRANSITION_MS + 50);
-    }
-  };
-
-  useEffect(() => {
-    return () => {
-      if (transitionTimeoutRef.current) {
-        clearTimeout(transitionTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  const baseColors = { primary: "#757575", accent: "#757575", sub: "#757575" };
-  const scrollRevealColors = { primary: "#ffffff", accent: "#FFAC3B", sub: "rgba(255,255,255,0.95)" };
+  const activeTheme = activeThemeIndex === null ? DEFAULT_THEME : THEMES[activeThemeIndex];
 
   return (
     <section
-      ref={cardRef}
-      className="relative z-10 w-full max-w-[1200px] mx-auto px-4 md:px-8 py-8 md:py-16 bg-white"
+      className="relative z-10 w-full px-4 py-20 transition-colors duration-500 motion-reduce:transition-none sm:px-6 sm:py-24 md:px-8 lg:py-28"
+      style={{ backgroundColor: activeTheme.bg }}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setActiveThemeIndex(null);
+      }}
     >
-      <div className="relative w-full overflow-hidden rounded-2xl md:rounded-4xl min-h-[320px] sm:min-h-[360px] md:min-h-[400px]">
-        {/* Background layers */}
-        <div className="absolute inset-0 z-0 bg-white rounded-2xl md:rounded-4xl" />
-        <motion.div
-          className="absolute inset-0 z-10 rounded-2xl md:rounded-4xl"
-          style={{ backgroundColor: "rgb(41, 75, 126)" }}
-          initial={{ clipPath: "circle(0% at 50% 50%)" }}
-          animate={{
-            clipPath: isInView ? "circle(150% at 50% 50%)" : "circle(0% at 50% 50%)",
-          }}
-          transition={{ duration: 0.95, ease: [0.22, 0.61, 0.36, 1] }}
-        />
-
-        {/* Base text layer */}
-        <div className="absolute inset-0 z-20 flex flex-col justify-center pointer-events-none rounded-2xl md:rounded-4xl">
-          <div className="px-6 sm:px-8 md:px-14 py-6 sm:py-8 md:py-10 w-full lg:max-w-[55%]">
-            <HeroText {...baseColors} />
+      <div className="mx-auto grid w-full max-w-[1200px] items-center gap-12 lg:grid-cols-2 lg:gap-20">
+        <div className="order-2 flex justify-center lg:order-1 lg:justify-start">
+          <div className="w-full max-w-[440px] rounded-3xl border border-[#E3E7ED] bg-white p-5 shadow-[0_10px_24px_rgba(24,42,68,0.10)] sm:p-6">
+            <div className="grid gap-3" role="group" aria-label="Choose a study theme">
+              {THEMES.map((theme, index) => (
+                <button
+                  key={theme.name}
+                  type="button"
+                  aria-pressed={activeThemeIndex === index}
+                  onMouseEnter={() => setActiveThemeIndex(index)}
+                  onMouseLeave={() => setActiveThemeIndex(null)}
+                  onFocus={() => setActiveThemeIndex(index)}
+                  onClick={() => setActiveThemeIndex(index)}
+                  className="flex min-h-16 w-full items-center rounded-xl border border-black/10 px-5 text-left text-base font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue"
+                  style={{ backgroundColor: theme.bg, color: theme.primary }}
+                >
+                  <span>{theme.name}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Highlight copy — same clip reveal as brand layer, viewport-triggered */}
-        <motion.div
-          className="absolute inset-0 z-30 flex flex-col justify-center pointer-events-none rounded-2xl md:rounded-4xl"
-          initial={{ clipPath: "circle(0% at 50% 50%)" }}
-          animate={{
-            clipPath: isInView ? "circle(150% at 50% 50%)" : "circle(0% at 50% 50%)",
-          }}
-          transition={{ duration: 0.95, ease: [0.22, 0.61, 0.36, 1] }}
-          aria-hidden
-        >
-          <div className="px-6 sm:px-8 md:px-14 py-6 sm:py-8 md:py-10 w-full lg:max-w-[55%]">
-            <HeroText {...scrollRevealColors} />
-          </div>
-        </motion.div>
-
-        {/* Theme overlays */}
-        {THEMES.map((theme, i) => {
-          const center = isDesktop ? { x: theme.circleCenterX, y: theme.circleCenterY } : { x: 50, y: 50 };
-          return (
-            <motion.div
-              key={theme.name}
-              className="absolute inset-0 flex flex-col justify-center rounded-2xl md:rounded-4xl pointer-events-none"
-              style={{ backgroundColor: theme.bg, zIndex: 31 + i }}
-              initial={false}
-              animate={{
-                clipPath: expandedOverlays[i]
-                  ? `circle(150% at ${center.x}% ${center.y}%)`
-                  : `circle(0% at ${center.x}% ${center.y}%)`,
-              }}
-              transition={{ 
-                duration: THEME_TRANSITION_MS / 1000, 
-                ease: [0.4, 0, 0.2, 1] 
-              }}
-            >
-              <div className="px-6 sm:px-8 md:px-14 py-6 sm:py-8 md:py-10 w-full lg:max-w-[55%]">
-                <HeroText primary={theme.primary} accent={theme.accent} sub={theme.sub} />
-              </div>
-            </motion.div>
-          );
-        })}
-
-        {/* Desktop: Pills positioned inside the card */}
-        <div className="absolute inset-0 z-50 rounded-4xl pointer-events-none hidden lg:block">
-          <div className="absolute inset-0 pointer-events-auto" onMouseLeave={handleThemeLeave}>
-            {THEMES.map((theme, i) => (
-              <DesktopPill
-                key={theme.name}
-                theme={theme}
-                onSelect={() => handleThemeSelect(i)}
-              />
-            ))}
-          </div>
+        <div className="order-1 max-w-[520px] lg:order-2">
+          <h2
+            className="text-3xl font-bold leading-[1.1] tracking-[-0.04em] transition-colors duration-500 motion-reduce:transition-none sm:text-4xl lg:text-[clamp(2.5rem,4vw,3.5rem)]"
+            style={{ color: activeTheme.primary }}
+          >
+            The <span style={{ color: activeTheme.accent }}>Only</span> Customisable Leaving Cert App
+          </h2>
+          <p
+            className="mt-6 text-base leading-relaxed transition-colors duration-500 motion-reduce:transition-none sm:text-lg"
+            style={{ color: activeTheme.sub }}
+          >
+            Choose from a wide range of themes, and study with the aesthetic that matches your vibe.
+          </p>
         </div>
-      </div>
-
-      {/* Mobile: Pills below the card */}
-      <div 
-        className="flex flex-wrap justify-center gap-3 mt-6 lg:hidden"
-        onMouseLeave={handleThemeLeave}
-      >
-        {THEMES.map((theme, i) => (
-          <MobilePill
-            key={theme.name}
-            theme={theme}
-            onSelect={() => handleThemeSelect(i)}
-          />
-        ))}
       </div>
     </section>
   );

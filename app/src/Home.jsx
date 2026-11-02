@@ -1,135 +1,80 @@
-import { useRef, useState } from "react";
-import { motion as Motion, useScroll, useTransform, useSpring } from "framer-motion";
-import full_app from "./assets/full_app.webp";
-import ai_snippet from "./assets/ai_snippet_app.webp";
+import { useState } from "react";
+import { ZoomIn, ZoomOut } from "lucide-react";
+import clean_full_app from "./assets/clean_full_app.png";
 import StudyIconsParallax from "./components/StudyIconsParallax";
-import FeaturesGrid from "./components/FeaturesGrid";
 import HeroCard from "./components/HeroCard";
-import promo from "./assets/videos/promo_vid.mp4";
+import MobileAppSection from "./components/MobileAppSection";
+import AiHelpSection from "./components/AiHelpSection";
+import DiscoverSection from "./components/DiscoverSection";
+import LaptopEssaySection from "./components/LaptopEssaySection";
+import DeviceShowcaseSection from "./components/DeviceShowcaseSection";
+import TrustSection from "./components/TrustSection";
 
 export default function Home() {
-  const videoSectionRef = useRef(null);
-  const champRef = useRef(null);
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
-
-  const handleMouseMove = (e) => {
-    if (!champRef.current) return;
-    const rect = champRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setMousePos({ x, y });
-  };
-
-  const { scrollYProgress: videoScrollProgress } = useScroll({
-    target: videoSectionRef,
-    offset: ["start end", "start center"],
-  });
-
-  const videoScaleRaw = useTransform(videoScrollProgress, [0, 1], [1.05, 1]);
-  const videoScale = useSpring(videoScaleRaw, { stiffness: 100, damping: 30, restDelta: 0.001 });
-
-  const videoYRaw = useTransform(videoScrollProgress, [0, 1], [30, 0]);
-  const videoY = useSpring(videoYRaw, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const [previewZoomed, setPreviewZoomed] = useState(false);
 
   return (
-    <div className="relative overflow-x-hidden w-full">
+    <div className="relative w-full overflow-x-hidden">
       <div className="hidden lg:block">
         <StudyIconsParallax />
       </div>
 
-      <section
-        className="relative z-10 min-h-screen w-full bg-transparent pt-24 md:pt-28 pb-8"
-        onMouseMove={handleMouseMove}
-      >
-        <div className="flex flex-col items-center justify-start w-full relative px-4 md:px-8">
-          <div className="relative z-20 flex flex-col items-center w-full py-4 md:py-5">
-            <Motion.h1
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight -tracking-[0.1rem] md:-tracking-[0.15rem] mb-4 text-black w-full text-center"
-              initial={{ opacity: 0, filter: "blur(12px)" }}
-              animate={{ opacity: 1, filter: "blur(0px)" }}
-              transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
-            >
-              Practice like a{" "}
-              <span
-                ref={champRef}
-                className="font-bold relative inline-block bg-clip-text text-transparent"
-                style={{
-                  backgroundImage: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, #FFD700, #FFBD53, #FFA500)`,
-                }}
+      <section className="relative z-10 w-full px-4 pt-28 pb-14 sm:px-6 sm:pt-24 md:px-8 lg:pt-12 lg:pb-24">
+        <div className="mx-auto flex min-h-[calc(100svh-7rem)] w-full max-w-[1400px] flex-col justify-center gap-12 lg:grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center lg:gap-14 xl:gap-16">
+          <div className="flex flex-col items-start text-left">
+            <h1 className="text-4xl font-bold leading-[1.02] tracking-[-0.055em] text-black sm:text-5xl lg:text-[clamp(3rem,5vw,4.25rem)]">
+              Practice like a <span className="block w-fit bg-[linear-gradient(90deg,#FFBD53,#FFA500)] bg-clip-text text-transparent">Champ</span>
+            </h1>
+            <p className="mt-6 max-w-[480px] text-base leading-relaxed text-dark-grey sm:text-lg">
+              Practise real Leaving Cert questions, get instant AI feedback, and track your progress in one place.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <a
+                href="https://app.certchamps.ie"
+                className="inline-flex min-h-12 items-center justify-center rounded-lg bg-[#F5A623] px-7 py-3 text-base font-semibold text-black transition-colors hover:bg-[#E99A11] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
               >
-                Champ
+                Get Started
+              </a>
+              <a
+                href="#ai-help"
+                className="inline-flex min-h-12 items-center justify-center rounded-lg border border-blue/25 bg-white px-6 py-3 text-base font-semibold text-blue transition-colors hover:border-blue/50 hover:bg-blue/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue"
+              >
+                See How It Works
+              </a>
+            </div>
+            <p className="mt-5 text-sm text-dark-grey">Made by students, for students.</p>
+          </div>
+
+          <div className="w-full lg:-ml-12 lg:w-[calc(100%+4rem)]">
+            <button
+              type="button"
+              onClick={() => setPreviewZoomed((zoomed) => !zoomed)}
+              aria-pressed={previewZoomed}
+              aria-label={previewZoomed ? "Show full product preview" : "Zoom in on handwritten answer and AI feedback"}
+              className={`relative block w-full overflow-hidden rounded-xl border border-[#D9DEE6] bg-white text-left shadow-[0_10px_24px_rgba(24,42,68,0.14)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue ${previewZoomed ? "cursor-zoom-out" : "cursor-zoom-in"}`}
+            >
+              <img
+                src={clean_full_app}
+                alt="CertChamps notes, practice question and AI study tools"
+                className={`block w-full transition-transform duration-700 ease-in-out motion-reduce:transition-none ${previewZoomed ? "scale-[1.35]" : "scale-100"}`}
+                style={{ transformOrigin: "80% 45%" }}
+                fetchPriority="high"
+              />
+              <span className="pointer-events-none absolute right-3 bottom-3 flex h-9 w-9 items-center justify-center rounded-full border border-grey/20 bg-white/95 text-black" aria-hidden="true">
+                {previewZoomed ? <ZoomOut size={18} /> : <ZoomIn size={18} />}
               </span>
-            </Motion.h1>
-            <Motion.h2
-              className="text-base sm:text-lg md:text-xl text-dark-grey w-full sm:w-2/3 md:w-1/2 lg:max-w-2xl mx-auto text-center px-4"
-              initial={{ opacity: 0, filter: "blur(10px)" }}
-              animate={{ opacity: 1, filter: "blur(0px)" }}
-              transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 0.61, 0.36, 1] }}
-            >
-              The all-in-one Leaving Cert study platform for students to practise questions, revise subjects and prepare for their exams.
-            </Motion.h2>
-          </div>
-
-          <div className="relative mt-2 hidden h-[50vh] w-full overflow-hidden md:block lg:h-[55vh]">
-            <Motion.img
-              src={full_app}
-              alt="CertChamps Leaving Cert study and practice app"
-              className="absolute top-0 left-1/2 z-10 object-contain"
-              style={{ height: "100%", width: "auto", maxWidth: "none" }}
-              initial={{ opacity: 0, x: "-48%" }}
-              animate={{ opacity: 1, x: "-55%" }}
-              transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
-            />
-            <Motion.img
-              src={ai_snippet}
-              alt="CertChamps AI helping with Leaving Cert exam questions"
-              className="absolute top-0 left-1/2 z-10 object-contain"
-              style={{ height: "100%", width: "auto", maxWidth: "none" }}
-              initial={{ opacity: 0, x: "8%" }}
-              animate={{ opacity: 1, x: "15%" }}
-              transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
-            />
-          </div>
-
-          <div className="md:hidden w-full flex flex-col items-center py-8">
-            <Motion.img
-              src={full_app}
-              alt="CertChamps Leaving Cert study and practice app"
-              className="w-[85%] max-w-[400px] object-contain"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
-            />
-          </div>
-
-          <div className="w-full flex justify-center items-center py-6 md:py-8">
-            <Motion.a
-              href="https://app.certchamps.ie"
-              className="bg-blue/10 text-blue px-6 py-3 rounded-md font-bold text-lg md:text-xl cursor-pointer hover:bg-blue/20 transition-colors"
-              initial={{ opacity: 0, filter: "blur(10px)" }}
-              animate={{ opacity: 1, filter: "blur(0px)" }}
-              transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 0.61, 0.36, 1] }}
-            >
-              Get Started
-            </Motion.a>
+            </button>
           </div>
         </div>
       </section>
 
-      <FeaturesGrid />
+      <DiscoverSection />
+      <LaptopEssaySection />
+      <MobileAppSection />
+      <AiHelpSection />
       <HeroCard />
-
-      <section ref={videoSectionRef} className="w-full max-w-[1200px] mx-auto px-4 md:px-8 py-12 md:py-20">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center text-dark-grey mb-6 md:mb-8">
-          see certchamps in action
-        </h2>
-        <Motion.div
-          className="w-full p-2 md:p-4 rounded-xl bg-grey/20 overflow-hidden origin-center"
-          style={{ scale: videoScale, y: videoY }}
-        >
-          <video src={promo} controls loop className="w-full rounded-lg md:rounded-xl" style={{ aspectRatio: "16/9" }} />
-        </Motion.div>
-      </section>
+      <DeviceShowcaseSection />
+      <TrustSection />
     </div>
   );
 }

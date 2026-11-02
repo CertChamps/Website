@@ -32,6 +32,10 @@ export default function Layout() {
   });
 
   useEffect(() => {
+    setHasScrolled(window.scrollY > 10);
+  }, []);
+
+  useEffect(() => {
     document.title = PAGE_TITLES[location.pathname] ?? PAGE_TITLES["/"];
   }, [location.pathname]);
 
@@ -71,42 +75,54 @@ export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col">
       <nav
-        className={`bg-white/95 backdrop-blur-sm py-4 px-4 md:px-8 w-full flex items-center justify-between fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          hasScrolled ? "border-b border-grey/20" : "border-b border-transparent"
-        }`}
+        className={`fixed top-4 right-4 left-4 z-50 mx-auto flex w-auto max-w-[1160px] items-center justify-between rounded-2xl border border-[#E6EAF0] bg-[#FCFCFD] px-3 shadow-[0_3px_12px_rgba(24,42,68,0.08)] transition-all duration-300 sm:px-4 md:px-8 ${hasScrolled ? "py-2" : "py-3 sm:py-4"}`}
       >
-        <Link to="/" className="flex items-center gap-2 z-50">
-          <img src={logo} alt="CertChamps Leaving Cert study platform" className="w-8 h-8 object-contain" />
-          <h1 className="font-bold text-black">
+        <Link to="/" className="relative z-50 flex shrink-0 items-center gap-2">
+          <img src={logo} alt="CertChamps Leaving Cert study platform" className={`object-contain transition-all duration-300 ${hasScrolled ? "h-7 w-7" : "h-8 w-8"}`} />
+          <h1 className="text-sm font-bold text-black sm:text-base">
             Cert<span className="text-gold">Champs</span>
           </h1>
         </Link>
 
         <div className="hidden md:flex items-center flex-1 justify-center gap-6">
           <Link to="/about" className="text-dark-grey hover:text-blue transition-colors">
-            about
+            About
           </Link>
           <Link to="/pricing" className="text-dark-grey hover:text-blue transition-colors">
-            pricing
+            Pricing
           </Link>
         </div>
 
         <div className="hidden md:flex items-center gap-2">
           <a
             href="https://app.certchamps.ie"
-            className="bg-blue/10 text-blue px-5 py-2 rounded-md font-bold hover:bg-blue/20 transition-colors"
+            className="px-3 py-2 font-semibold text-blue transition-colors hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue"
           >
-            login
+            Log In
+          </a>
+          <a
+            href="https://app.certchamps.ie"
+            className="rounded-md bg-[#F5A623] px-4 py-2 font-semibold text-black transition-colors hover:bg-[#E99A11] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+          >
+            Get Started
           </a>
         </div>
 
-        <button
-          className="md:hidden z-50 p-2 -mr-2"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6 text-black" /> : <Menu className="w-6 h-6 text-black" />}
-        </button>
+        <div className="relative z-50 flex items-center gap-1 md:hidden">
+          <a
+            href="https://app.certchamps.ie"
+            className="inline-flex min-h-11 items-center rounded-md bg-[#F5A623] px-2 text-xs font-semibold text-black transition-colors hover:bg-[#E99A11] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:px-3 sm:text-sm"
+          >
+            Get Started
+          </a>
+          <button
+            className="-mr-1 min-h-11 min-w-11 p-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6 text-black" /> : <Menu className="h-6 w-6 text-black" />}
+          </button>
+        </div>
 
         <AnimatePresence>
           {mobileMenuOpen && (
@@ -123,20 +139,20 @@ export default function Layout() {
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-2xl text-dark-grey hover:text-blue transition-colors"
                 >
-                  about
+                  About
                 </Link>
                 <Link
                   to="/pricing"
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-2xl text-dark-grey hover:text-blue transition-colors"
                 >
-                  pricing
+                  Pricing
                 </Link>
                 <a
                   href="https://app.certchamps.ie"
-                  className="bg-blue text-white px-8 py-3 rounded-md font-bold text-xl mt-4"
+                  className="mt-4 text-xl font-semibold text-blue hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue"
                 >
-                  login
+                  Log In
                 </a>
               </div>
             </Motion.div>

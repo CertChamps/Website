@@ -36,6 +36,19 @@ img, video {
   height: auto;
 }
 
+.study-icon-drift {
+  animation: study-icon-drift 9s ease-in-out infinite alternate;
+}
+
+@keyframes study-icon-drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .study-icon-drift { animation: none; }
+}
+
 /* Better tap targets on mobile */
 @media (max-width: 768px) {
   a, button {
