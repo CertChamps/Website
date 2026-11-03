@@ -21,16 +21,16 @@ export default function DeviceShowcaseSection() {
           </a>
           <a
             href="#ai-help"
-            className="inline-flex min-h-12 items-center justify-center rounded-lg border border-blue/25 bg-white px-6 py-3 text-base font-semibold text-blue transition-colors hover:border-blue/50 hover:bg-blue/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue"
+            className="inline-flex min-h-12 items-center justify-center rounded-lg border border-[#E3E7ED] bg-white px-6 py-3 text-base font-semibold text-dark-grey transition-colors hover:border-[#C8D0D8] hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
           >
             See How It Works
           </a>
         </div>
       </div>
 
-      <div className="mx-auto mt-14 flex w-full max-w-[1280px] flex-col items-center gap-10 lg:flex-row lg:items-end lg:justify-center lg:gap-7" role="group" aria-label="CertChamps on iPad, laptop and iPhone">
-        <div className="order-2 w-full max-w-[580px] lg:order-1 lg:w-[35%] lg:max-w-none">
-          <div className="overflow-hidden rounded-[26px] border-[8px] border-[#1B1D21] bg-[#1B1D21] shadow-[0_10px_24px_rgba(24,42,68,0.12)]">
+      <div className="mx-auto mt-10 flex w-full max-w-[1280px] items-end justify-center gap-2 sm:mt-14 sm:gap-4 lg:gap-7" role="group" aria-label="CertChamps on iPad, laptop and iPhone">
+        <div className="w-[34%] lg:w-[35%]">
+          <div className="overflow-hidden rounded-[10px] border-[3px] border-[#1B1D21] bg-[#1B1D21] shadow-[0_10px_24px_rgba(24,42,68,0.12)] sm:rounded-[18px] sm:border-[5px] lg:rounded-[26px] lg:border-[8px]">
             <img
               src={ipadDiscover}
               alt="CertChamps Discover resources on an iPad"
@@ -40,8 +40,8 @@ export default function DeviceShowcaseSection() {
           </div>
         </div>
 
-        <div className="order-1 w-full max-w-[720px] lg:order-2 lg:w-[45%] lg:max-w-none">
-          <div className="overflow-hidden rounded-t-[16px] rounded-b-[5px] border-[8px] border-[#202327] bg-[#202327] shadow-[0_10px_24px_rgba(24,42,68,0.12)]">
+        <div className="w-[44%] lg:w-[45%]">
+          <div className="overflow-hidden rounded-t-[7px] rounded-b-[3px] border-[3px] border-[#202327] bg-[#202327] shadow-[0_10px_24px_rgba(24,42,68,0.12)] sm:rounded-t-[12px] sm:border-[5px] lg:rounded-t-[16px] lg:rounded-b-[5px] lg:border-[8px]">
             <img
               src={laptopEssay}
               alt="CertChamps essay and AI feedback on a laptop"
@@ -50,21 +50,21 @@ export default function DeviceShowcaseSection() {
                 fetchPriority="high"
             />
           </div>
-          <div className="relative mx-auto h-4 w-[108%] -translate-x-[3.7%] rounded-b-[18px] border border-[#C8D0D8] bg-[#E7EBEF] shadow-[0_5px_10px_rgba(24,42,68,0.08)]">
-            <span className="absolute left-1/2 top-0 h-[3px] w-16 -translate-x-1/2 rounded-b-md bg-[#C5CDD5]" aria-hidden="true" />
+          <div className="relative mx-auto h-2 w-[108%] -translate-x-[3.7%] rounded-b-[8px] border border-[#C8D0D8] bg-[#E7EBEF] shadow-[0_5px_10px_rgba(24,42,68,0.08)] sm:h-3 lg:h-4 lg:rounded-b-[18px]">
+            <span className="absolute left-1/2 top-0 h-[2px] w-8 -translate-x-1/2 rounded-b-md bg-[#C5CDD5] sm:w-12 lg:h-[3px] lg:w-16" aria-hidden="true" />
           </div>
         </div>
 
-        <div className="order-3 w-[min(55vw,250px)] lg:w-[13.5%]">
-          <div className="rounded-[34px] border-[7px] border-[#17191D] bg-[#17191D] shadow-[0_10px_24px_rgba(24,42,68,0.12)]">
-            <div className="relative overflow-hidden rounded-[27px] bg-white">
+        <div className="w-[14%] lg:w-[13.5%]">
+          <div className="rounded-[12px] border-[2px] border-[#17191D] bg-[#17191D] shadow-[0_10px_24px_rgba(24,42,68,0.12)] sm:rounded-[22px] sm:border-[4px] lg:rounded-[34px] lg:border-[7px]">
+            <div className="relative overflow-hidden rounded-[9px] bg-white sm:rounded-[17px] lg:rounded-[27px]">
               <img
                 src={mobileQuestion}
                 alt="CertChamps Leaving Cert question on an iPhone"
                 className="block h-auto w-full"
                 loading="lazy"
               />
-              <span className="pointer-events-none absolute left-1/2 top-1.5 h-[14px] w-[54px] -translate-x-1/2 rounded-full bg-[#17191D]" aria-hidden="true" />
+              <span className="pointer-events-none absolute left-1/2 top-0.5 h-[5px] w-[18px] -translate-x-1/2 rounded-full bg-[#17191D] sm:top-1 sm:h-[9px] sm:w-[34px] lg:top-1.5 lg:h-[14px] lg:w-[54px]" aria-hidden="true" />
             </div>
           </div>
         </div>

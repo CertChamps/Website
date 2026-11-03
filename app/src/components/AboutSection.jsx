@@ -1,6 +1,8 @@
 import { motion as Motion } from "framer-motion";
 import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
 import crownIdleUrl from "../assets/crown_idle.riv?url";
+import cianPhoto from "../assets/cian_graduation.jpeg";
+import benPhoto from "../assets/ben.jpeg";
 
 const HEADING = "Why isn't there an easier way to learn?";
 const SUBHEADING = "It all began with two students, one shared experience, and one simple question.";
@@ -66,12 +68,17 @@ function FloatingCrown() {
 
 const founders = [
   {
-    name: "Cian",
-    text: "Cian spent countless hours studying on his iPad and kept thinking there had to be a better, more natural and more efficient way to prepare for exams. The technology was already in our hands, but the study experience still felt like it had not caught up.",
+    name: "Ben",
+    role: "CEO",
+    photo: benPhoto,
+    text: "Ben saw a different challenge. He believed that students should not have to pay huge amounts to access high-quality educational resources. Good education should be accessible to everyone, and students should have the opportunity to learn, practise and improve regardless of their circumstances.",
   },
   {
-    name: "Ben",
-    text: "Ben saw a different challenge. He believed that students should not have to pay huge amounts to access high-quality educational resources. Good education should be accessible to everyone, and students should have the opportunity to learn, practise and improve regardless of their circumstances.",
+    name: "Cian",
+    role: "CTO",
+    photo: cianPhoto,
+    photoClass: "origin-[50%_30%] scale-[1.65]",
+    text: "Cian spent countless hours studying on his iPad and kept thinking there had to be a better, more natural and more efficient way to prepare for exams. The technology was already in our hands, but the study experience still felt like it had not caught up.",
   },
 ];
 
@@ -97,11 +104,20 @@ export default function AboutSection() {
           weren&apos;t changing with it.
         </p>
 
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="mx-auto mt-8 grid max-w-[620px] grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-6">
           {founders.map((founder) => (
-            <div key={founder.name} className="rounded-2xl bg-white border border-grey/20 p-6">
-              <h2 className="text-xl font-bold text-[#E99A11] mb-3">{founder.name}</h2>
-              <p className="text-sm leading-relaxed text-dark-grey">{founder.text}</p>
+            <div key={founder.name} className="mx-auto w-full max-w-[300px] text-left sm:max-w-none">
+              <div className="aspect-square w-full overflow-hidden rounded-lg bg-light-grey">
+                <img
+                  src={founder.photo}
+                  alt={founder.name}
+                  className={`h-full w-full object-cover ${founder.photoClass ?? ""}`}
+                  loading="lazy"
+                />
+              </div>
+              <h2 className="mt-4 text-xl font-bold text-black">{founder.name}</h2>
+              <p className="mt-1 font-medium text-[#E99A11]">{founder.role}</p>
+              <p className="mt-3 text-sm leading-relaxed text-dark-grey">{founder.text}</p>
             </div>
           ))}
         </div>

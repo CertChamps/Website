@@ -96,7 +96,7 @@ export default function Layout() {
         <div className="hidden md:flex items-center gap-2">
           <a
             href="https://app.certchamps.ie"
-            className="px-3 py-2 font-semibold text-blue transition-colors hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue"
+            className="px-3 py-2 font-semibold text-black transition-colors hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
           >
             Log In
           </a>
@@ -150,7 +150,7 @@ export default function Layout() {
                 </Link>
                 <a
                   href="https://app.certchamps.ie"
-                  className="mt-4 text-xl font-semibold text-blue hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue"
+                  className="mt-4 text-xl font-semibold text-black hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 >
                   Log In
                 </a>
